@@ -8,6 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\test.tmx" />
+    <None Remove="Assets\tileset.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\test.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\tileset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\BlackCoat\src\BlackCoat.csproj" />
   </ItemGroup>
 

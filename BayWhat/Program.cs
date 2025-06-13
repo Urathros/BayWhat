@@ -13,7 +13,7 @@ namespace BayWhat
             using var core = new Core(Device.Demo);
             core.Debug = true;
 
-            var scene = new TestScene(core);
+            var scene = new BeachScene(core);
             core.SceneManager.ChangeScene(scene);
             core.Run();
         }
