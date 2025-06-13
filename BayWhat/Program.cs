@@ -1,3 +1,5 @@
+using BlackCoat;
+
 namespace BayWhat
 {
     internal static class Program
@@ -7,7 +9,8 @@ namespace BayWhat
         /// </summary>
         static void Main()
         {
-          
+            using var core = new Core(Device.Demo);
+            core.Run();
         }
     }
 }
