@@ -8,7 +8,7 @@ using BlackCoat;
 using BlackCoat.Collision;
 using BlackCoat.Collision.Shapes;
 
-namespace SquareRoot
+namespace BayWhat
 {
     class MapData
     {

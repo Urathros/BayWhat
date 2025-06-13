@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BlackCoat;
+using BlackCoat.Entities;
+using BlackCoat.Entities.Shapes;
+using BlackCoat.InputMapping;
+using SFML.System;
+using SFML.Graphics;
+using BlackCoat.Entities.Animation;
+using BlackCoat.AssetHandling;
+using SFML.Audio;
+using BlackCoat.Collision.Shapes;
+
+namespace BayWhat
+{
+
+    class Player : Container
+    {
+        private SimpleInputMap<GameAction> _InputMap;
+        public event Action Act = () => { };
+
+        private BlittingAnimation _Walk;
+        private BlittingAnimation _WalkUp;
+        private BlittingAnimation _Overlay;
+        private BlittingAnimation _OverlayUp;
+
+        private Vector2f _Dimensions;
+        private Vector2f _DimensionsCenter;
+        private Vector2f _Direction;
+        private Vector2f _Velocity = new(100,100);
+        private bool _Locked;
+        private bool _HitLocked;
+
+        public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
+        {
+            _InputMap = inputMap;
+            _InputMap.MappedOperationInvoked += HandleInput;
+
+            _Dimensions = new Vector2f(32, 32);
+            _DimensionsCenter = new Vector2f(_Dimensions.X / 2, _Dimensions.Y);
+
+            CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _Dimensions);
+
+            // PlayerGfx
+            Add(new Rectangle(_Core, _Dimensions, Color.Yellow));
+            /*
+            var pos = new Vector2f(_DimensionsCenter.X, -_Dimensions.Y);
+            var origin = new Vector2f(_DimensionsCenter.X, 0);
+            _Walk = new BlittingAnimation(_Core, 0.1f, texLoader.Load("sheet_char"), Game.CalcFrames(64, 4, 128).ToArray())
+            {
+                Position = pos,
+                Origin = origin
+            };
+            Add(_Walk);*/
+        }
+
+
+        private void HandleInput(GameAction action, bool activate)
+        {
+            switch (action)
+			{
+				case GameAction.Left:
+					_Direction = new Vector2f(activate ? -1 : (_Direction.X == -1 ? 0 : _Direction.X), _Direction.Y);
+					break;
+				case GameAction.Right:
+					_Direction = new Vector2f(activate ? 1 : (_Direction.X == 1 ? 0 : _Direction.X), _Direction.Y);
+					break;
+				case GameAction.Up:
+					_Direction = new Vector2f(_Direction.X, activate ? -1 : (_Direction.Y == -1 ? 0 : _Direction.Y));
+					break;
+				case GameAction.Down:
+					_Direction = new Vector2f(_Direction.X, activate ? 1 : (_Direction.Y == 1 ? 0 : _Direction.Y));
+					break;
+                case GameAction.Act:
+                    if (activate) Act();
+                    break;
+            }
+        }
+
+        public override void Update(float deltaT)
+        {
+            base.Update(deltaT);
+
+            // Calc Move
+            /*
+            _Velocity.X = LERP(_Velocity.X, desiredVelocity, Math.Min(1, speedChange * deltaT));
+            while (AtWall.Invoke(Position + _DimensionsRight))
+            {
+                _Velocity.X = 0;
+                Position = new Vector2f(Position.X - 1, Position.Y);
+            }
+            while (AtWall.Invoke(Position + _DimensionsLeft))
+            {
+                _Velocity.X = 0;
+                Position = new Vector2f(Position.X + 1, Position.Y);
+            }
+            while (HeadBump(Position+new Vector2f(_DimensionsCenter.X, 0)))
+            {
+                _Velocity.Y = 0;
+                Position = new Vector2f(Position.X, Position.Y + 1);
+            }
+            */
+
+            // MOVE
+            Position += _Direction.MultiplyBy(_Velocity) * deltaT;
+            (CollisionShape as RectangleCollisionShape).Position = Position;
+
+            if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
+        }
+
+        public void Destroy()
+        {
+            _InputMap.MappedOperationInvoked -= HandleInput;
+        }
+    }
+}

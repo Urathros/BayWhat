@@ -1,15 +1,16 @@
 ﻿using BlackCoat;
-using SquareRoot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BlackCoat.Entities.Shapes;
+using BlackCoat.InputMapping;
+using SFML.Graphics;
 
 namespace BayWhat
 {
 	internal class BeachScene : Scene
 	{
+		private SimpleInputMap<GameAction> _InputMapPlayer1;
+		private SimpleInputMap<GameAction> _InputMapPlayer2;
+		private Player _Player1; // Beachbunny
+		private Player _Player2; // Shark
 		private CollisionObject[] _Collisions = [];
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
@@ -18,6 +19,10 @@ namespace BayWhat
 
 		protected override bool Load()
 		{
+			// View
+			Layer_Background.View = Game.View;
+			Layer_Game.View = Game.View;
+
 			// Tile Map
 			var tex = TextureLoader.Load("tileset");
 			var mapData = new MapData();
@@ -33,7 +38,13 @@ namespace BayWhat
 			}
 			// Collision Layer
 			_Collisions = mapData.Collisions;
-
+			
+			// Players
+			_Player1 = new Player(_Core, Game.CreateInput(0), TextureLoader)
+			{
+				Position = _Collisions.Where(c => c.Type == CollisionType.Start).First().Shape.Position,
+			};
+			Layer_Game.Add(_Player1);
 			return true;
 		}
 

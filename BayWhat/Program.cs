@@ -10,8 +10,11 @@ namespace BayWhat
         [STAThread]
         static void Main()
         {
-            using var core = new Core(Device.Demo);
+            var device = Device.Demo;
+            using var core = new Core(device);
             core.Debug = true;
+
+            Game.Initialize(core, device);
 
             var scene = new BeachScene(core);
             core.SceneManager.ChangeScene(scene);

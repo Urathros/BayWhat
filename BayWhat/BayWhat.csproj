@@ -25,4 +25,10 @@
     <ProjectReference Include="..\..\BlackCoat\src\BlackCoat.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="TinyTools">
+      <HintPath>..\..\BlackCoat\lib\TinyTools.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

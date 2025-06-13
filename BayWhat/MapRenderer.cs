@@ -4,7 +4,7 @@ using SFML.System;
 using BlackCoat;
 using BlackCoat.Entities;
 
-namespace SquareRoot
+namespace BayWhat
 {
     class MapRenderer : EntityBase<RectangleShape>
     {
