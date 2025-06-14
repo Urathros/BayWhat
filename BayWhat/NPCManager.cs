@@ -27,8 +27,11 @@ namespace BayWhat
         public float DrunkSeconds { get; set; }
         public Vector2f Offset => _partyArea.Position();
 
+        public Vector2f PosInPartyArea => _Core.Random.NextVector(_partyArea);
 
-		private RectangleCollisionShape _oceanCollision;
+
+
+        private RectangleCollisionShape _oceanCollision;
         private HUD _hud;
 		private readonly TextureLoader _TextureLoader;
 
@@ -69,7 +72,7 @@ namespace BayWhat
 
         public void AddEntities(int size)
         {
-            for (int i = 0; i < size; i++) AddEntity(_Core.Random.NextVector(_partyArea));
+            for (int i = 0; i < size; i++) AddEntity(PosInPartyArea);
         }
 
     }

@@ -141,7 +141,7 @@ namespace BayWhat
 					{
 						_Player1.Remove(npc);
 						_hud.Score += 100;
-						_Npcs.AddEntity(default);
+						_Npcs.AddEntity(_Npcs.PosInPartyArea);
 					}
 				}
 			}
