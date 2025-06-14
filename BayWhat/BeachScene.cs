@@ -15,7 +15,6 @@ namespace BayWhat
 		private Vector2i _MapSize;
 		private IntRect _ViewBounds;
         private NPCManager _Npcs;
-        private Rectangle _Ocean;
         private PauseMenu _Pause;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
@@ -56,18 +55,16 @@ namespace BayWhat
 			HandleDeviceResize(_Core.DeviceSize);
 
             // NPC
-            _Ocean = new(_Core, _Core.DeviceSize, Color.Blue);
-            _Ocean.Position = new(0, _Core.DeviceSize.Y - 1);
-
 			Game.IsRunning = true;
-			_Npcs = new (_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _Ocean);
+			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
+			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
+			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea);
 			_Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
-			Layer_Game.Add(_Ocean);
 
-			//// Pause
-			_Pause = new PauseMenu(_Core, Input);
-			Game.IsRunning = false; // when pause menu is opened
+			// PauseMenu
+			_Pause = new PauseMenu(_Core, Input) { Visible = false };
+			//Game.IsRunning = false; // when pause menu is opened
 			Layer_Overlay.Add(_Pause);
 			return true;
 		}

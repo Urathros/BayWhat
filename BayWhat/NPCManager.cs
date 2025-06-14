@@ -1,6 +1,7 @@
 ﻿using BlackCoat;
 using BlackCoat.Animation;
 using BlackCoat.Collision;
+using BlackCoat.Collision.Shapes;
 using BlackCoat.Entities;
 using SFML.Graphics;
 using SFML.System;
@@ -26,9 +27,9 @@ namespace BayWhat
         public float DrunkSeconds { get; set; }
 
 
-        private ICollisionShape _oceanCollision;
+        private RectangleCollisionShape _oceanCollision;
 
-        public NPCManager(Core core, FloatRect area, float drunkSeconds, ICollisionShape oceanCollision) : base(core)
+        public NPCManager(Core core, FloatRect area, float drunkSeconds, RectangleCollisionShape oceanCollision) : base(core)
         {
             _area = area;
             DrunkSeconds = drunkSeconds;
