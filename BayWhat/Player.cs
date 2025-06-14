@@ -14,12 +14,13 @@ namespace BayWhat
         private SimpleInputMap<GameAction> _InputMap;
         public event Action Act = () => { };
 
+        private BlittingAnimation _Idle;
         private BlittingAnimation _Walk;
 
-        private Vector2f _Dimensions;
+		private Vector2f _Dimensions;
         private Vector2f _DimensionsCenter;
         private Vector2f _Direction;
-        private Vector2f _Velocity = new(100,100);
+        private Vector2f _Velocity = new(200,200);
 
         public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
         {
@@ -28,21 +29,28 @@ namespace BayWhat
 
             _Dimensions = new Vector2f(32, 32);
             _DimensionsCenter = new Vector2f(_Dimensions.X / 2, _Dimensions.Y);
-
             CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _Dimensions);
 
             // PlayerGfx
-            Add(new Rectangle(_Core, _Dimensions, Color.Yellow));
-            /*
+            //Add(new Rectangle(_Core, _Dimensions, Color.Yellow));
             var pos = new Vector2f(_DimensionsCenter.X, -_Dimensions.Y);
             var origin = new Vector2f(_DimensionsCenter.X, 0);
-            _Walk = new BlittingAnimation(_Core, 0.1f, texLoader.Load("sheet_char"), Game.CalcFrames(64, 4, 128).ToArray())
-            {
-                Position = pos,
-                Origin = origin
-            };
-            Add(_Walk);*/
-        }
+            var frametime = 0.2f;
+			Texture char_tex = texLoader.Load("baywhat_mc");
+			_Idle = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 0, 4).ToArray())
+			{
+				Position = pos,
+				Origin = origin
+			};
+			Add(_Idle);
+			_Walk = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 4, 8).ToArray())
+			{
+				Position = pos,
+				Origin = origin,
+				Visible = false
+			};
+			Add(_Walk);
+		}
 
 
         private void HandleInput(GameAction action, bool activate)
@@ -51,9 +59,11 @@ namespace BayWhat
 			{
 				case GameAction.Left:
 					_Direction = new Vector2f(activate ? -1 : (_Direction.X == -1 ? 0 : _Direction.X), _Direction.Y);
+					if(activate) _Walk.Scale = _Idle.Scale = new(-1, 1);
 					break;
 				case GameAction.Right:
 					_Direction = new Vector2f(activate ? 1 : (_Direction.X == 1 ? 0 : _Direction.X), _Direction.Y);
+					if (activate) _Walk.Scale = _Idle.Scale = new(1, 1);
 					break;
 				case GameAction.Up:
 					_Direction = new Vector2f(_Direction.X, activate ? -1 : (_Direction.Y == -1 ? 0 : _Direction.Y));
@@ -71,30 +81,12 @@ namespace BayWhat
         {
             base.Update(deltaT);
 
-            // Calc Move
-            /*
-            _Velocity.X = LERP(_Velocity.X, desiredVelocity, Math.Min(1, speedChange * deltaT));
-            while (AtWall.Invoke(Position + _DimensionsRight))
-            {
-                _Velocity.X = 0;
-                Position = new Vector2f(Position.X - 1, Position.Y);
-            }
-            while (AtWall.Invoke(Position + _DimensionsLeft))
-            {
-                _Velocity.X = 0;
-                Position = new Vector2f(Position.X + 1, Position.Y);
-            }
-            while (HeadBump(Position+new Vector2f(_DimensionsCenter.X, 0)))
-            {
-                _Velocity.Y = 0;
-                Position = new Vector2f(Position.X, Position.Y + 1);
-            }
-            */
-
             // MOVE
             Position += _Direction.MultiplyBy(_Velocity) * deltaT;
+            _Idle.Visible = _Direction == default;
+            _Walk.Visible = !_Idle.Visible;
             (CollisionShape as RectangleCollisionShape)!.Position = Position;
-
+            
             if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
         }
 

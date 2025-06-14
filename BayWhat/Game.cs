@@ -94,13 +94,26 @@ namespace BayWhat
         }
 
 
-        public static IEnumerable<IntRect> CalcFrames(int width, int FramesInAnimation, int height = 0, int start = 0, int row = 0)
-        {
-            height = height == 0 ? width : height;
-            for (int i = start; i < FramesInAnimation+start; i++)
-            {
-                yield return new IntRect(i * width, row * height, width, height);
-            }
-        }
-    }
+		public static IEnumerable<IntRect> CalcFrames(int width, int FramesInAnimation, int height = 0, int start = 0, int row = 0)
+		{
+			height = height == 0 ? width : height;
+			for (int i = start; i < FramesInAnimation + start; i++)
+			{
+				yield return new IntRect(i * width, row * height, width, height);
+			}
+		}
+
+		public static IEnumerable<IntRect> CalcFrames(Texture tex, Vector2u frame, uint start = 0, uint end = 0)
+		{
+            uint cols = tex.Size.X / frame.X;
+            uint rows = tex.Size.Y / frame.Y;
+            if (end == 0) end = cols * rows;
+			for (uint i = start; i < end; i++)
+			{
+                uint y = i / cols;
+                uint x = i - y * cols;
+				yield return new IntRect((int)(x * frame.X), (int)(y * frame.Y), (int)frame.X, (int)frame.Y);
+			}
+		}
+	}
 }

@@ -8,11 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\baywhat_mc.png" />
     <None Remove="Assets\test.tmx" />
     <None Remove="Assets\tileset.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\baywhat_mc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\test.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

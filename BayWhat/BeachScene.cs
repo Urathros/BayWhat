@@ -45,11 +45,10 @@ namespace BayWhat
 			}
 			// Collision Layer
 			_Collisions = mapData.Collisions;
-			
 			// Players
 			_Player1 = new Player(_Core, Game.CreateInput(0), TextureLoader)
 			{
-				//Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
+				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};
 			
 			Layer_Game.Add(_Player1);
