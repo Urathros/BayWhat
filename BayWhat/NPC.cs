@@ -30,6 +30,8 @@ namespace BayWhat
         const float DURATION = .5f;
         const float MIN_DANCE_SPEED = 48f;
         const float MAX_DANCE_SPEED = 52f;
+        const float MIN_SWIM_SPEED = MIN_DANCE_SPEED - 10;
+        const float MAX_SWIM_SPEED = MAX_DANCE_SPEED - 10;
 
         readonly Vector2f FORWARD = new(0f, 1f);
         readonly Vector2f BACKWARD = new(0f, -1f);
@@ -96,6 +98,8 @@ namespace BayWhat
                     _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleDirectionChange);
                     break;
                 case NPCState.Swiming:
+                    _speed = _Core.Random.NextFloat(MIN_SWIM_SPEED, MAX_SWIM_SPEED);
+                    _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleDirectionChange);
                     break;
                 case NPCState.Rescue:
                     break;
