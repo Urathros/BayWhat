@@ -43,6 +43,22 @@ namespace BayWhat
             set => _warningLabelPosition = new(value.X - 160, value.Y - 50);
         }
 
+        private bool _isBlinking = false;
+
+        public bool IsBlinking
+        {
+            get => _isBlinking; 
+            set 
+            { 
+                if(!_isBlinking && value)
+                {
+                    _isBlinking = value;
+                    PrintBlinkFadeOut();
+                }
+                else _isBlinking = value; 
+            }
+        }
+
 
 
         public HUD(Core core, Input input, params UIComponent[] components) : base(core, components)
@@ -69,7 +85,7 @@ namespace BayWhat
                 _warningLabel
             };
 
-
+            IsBlinking = true;
             _Core.DeviceResized += HandleResize;
         }
 
@@ -88,6 +104,26 @@ namespace BayWhat
             _scoreLabel.Position = ScoreLabelPosition;
             _warningLabel.Position = WarningLabelPosition;
 
+        }
+
+        private void PrintBlinkFadeOut()
+        {
+            if (!_isBlinking) return;
+
+
+            _Core.AnimationManager.Run(1f, 0f, .3f, HandleWarningBlink, PrintBlinkFadeIn);
+        }
+
+        private void PrintBlinkFadeIn()
+        {
+            _Core.AnimationManager.Run(0f, 1f, .3f, HandleWarningBlink, PrintBlinkFadeOut);
+
+
+        }
+
+        private void HandleWarningBlink(float val)
+        {
+            _warningLabel.Alpha = val;
         }
     }
 }
