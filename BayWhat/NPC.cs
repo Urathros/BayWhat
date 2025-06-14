@@ -44,6 +44,7 @@ namespace BayWhat
         Vector2f _direction;
         float _deltaT;
         float _speed;
+        float _duration;
 
         #endregion
         public NPCState State { get; set; }
@@ -84,6 +85,7 @@ namespace BayWhat
                     }
                     break;
                 case NPCState.Drunken:
+                    _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleDirectionChange);
                     break;
                 case NPCState.Swiming:
                     break;
@@ -104,7 +106,8 @@ namespace BayWhat
             _sprite.Origin = _sprite.Size / 2;
             Add(_sprite);
             _direction = FORWARD;
-            _speed = 50f;
+            _speed = (float)_Core.Random.Next(48, 52);
+            _duration = _Core.Random.NextFloat(.4f, .6f);
             State = NPCState.Dancing;
             
 

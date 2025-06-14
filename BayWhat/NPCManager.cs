@@ -1,4 +1,5 @@
 ﻿using BlackCoat;
+using BlackCoat.Animation;
 using BlackCoat.Entities;
 using SFML.Graphics;
 using SFML.System;
@@ -13,12 +14,35 @@ namespace BayWhat
 {
     internal class NPCManager : Container
     {
-
+        
         FloatRect _area;
 
-        public NPCManager(Core core, FloatRect area) : base(core)
+        const float DURATION = 1f;
+
+        /// <summary>
+        /// Time the next NPC needs to become drunken
+        /// </summary>
+        public float DrunkSeconds { get; set; }
+
+        public NPCManager(Core core, FloatRect area, float drunkSeconds) : base(core)
         {
             _area = area;
+            DrunkSeconds = drunkSeconds;
+            _Core.AnimationManager.Wait(DrunkSeconds, HandleDrunkenStateRandom);
+        }
+
+        private void HandleDrunkenStateRandom()
+        {
+            var npc = ((NPC)_Entities[_Core.Random.Next(0, _Entities.Count)]);
+            
+            if(npc.State == NPCState.Drunken)
+            {
+                HandleDrunkenStateRandom();
+                return;
+            }
+
+            npc.State = NPCState.Drunken;
+            _Core.AnimationManager.Wait(DrunkSeconds, HandleDrunkenStateRandom);
         }
 
         public NPCManager AddEntity(Vector2f position)
@@ -33,5 +57,6 @@ namespace BayWhat
         {
             for (int i = 0; i < size; i++) AddEntity(_Core.Random.NextVector(_area));
         }
+
     }
 }

@@ -20,7 +20,7 @@ namespace BayWhat
             var pos = _Core.DeviceSize / 2;
             pos.X = pos.X + 50f;
             pos.Y = pos.Y + 50f;
-            _npcs = new NPCManager(core, new(new(0f, 0f), _Core.DeviceSize)); 
+            _npcs = new NPCManager(core, new(new(0f, 0f), _Core.DeviceSize), 10f); 
             _npcs.AddEntities(5);
         }
 
