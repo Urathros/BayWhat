@@ -146,7 +146,7 @@ namespace BayWhat
                            {
                                Name = "Button Start",
                                BackgroundColor = Color.Blue,
-                               InitReleased = b => _Core.SceneManager.ChangeScene(new TestScene(_Core)),
+                               InitReleased = b => _Core.SceneManager.ChangeScene(new BeachScene(_Core)),
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
                            },

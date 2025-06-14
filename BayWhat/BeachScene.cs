@@ -14,8 +14,11 @@ namespace BayWhat
 		private View _View;
 		private Vector2i _MapSize;
 		private IntRect _ViewBounds;
+        private NPCManager _npcs;
+        private Rectangle _ocean;
+        private PauseMenu _pause;
 
-		public View VVV => _View;
+        public View VVV => _View;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
@@ -53,7 +56,22 @@ namespace BayWhat
 			
 			Layer_Game.Add(_Player1);
 			HandleDeviceResize(_Core.DeviceSize);
-			return true;
+
+            // NPC
+            _ocean = new(_Core, _Core.DeviceSize, Color.Blue);
+            _ocean.Position = new(0, _Core.DeviceSize.Y - 1);
+
+			Game.IsRunning = true;
+			_npcs = new (_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
+			_npcs.AddEntities(50);
+			Layer_Game.Add(_npcs);
+			Layer_Game.Add(_ocean);
+
+			//// Pause
+            //_pause = new(_Core, Input);
+            //Game.IsRunning = false; // when pause menu is opened
+            //Layer_Game.Add(_pause);
+            return true;
 		}
 
 		private void HandleDeviceResize(Vector2f deviceSize)
