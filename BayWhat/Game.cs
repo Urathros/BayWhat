@@ -10,6 +10,7 @@ using BlackCoat;
 using BlackCoat.InputMapping;
 using BlackCoat.AssetHandling;
 using BlackCoat.Entities;
+using BlackCoat.UI;
 
 namespace BayWhat
 {
@@ -137,7 +138,13 @@ namespace BayWhat
         public static TextItem GetPixelText(Core core, String text = "", uint characterSize = 16)
         {
             var font = _font.Load("PixelifySans-Regular");
-            return new TextItem(_Core, "Pugs", 32, font);
+            return new TextItem(_Core, text, 32, font);
         }
-	}
+
+        public static Label GetPixelLabel(Core core, String text = "", uint characterSize = 16)
+        {
+            var font = _font.Load("PixelifySans-Regular");
+            return new Label(_Core, text, 32, font);
+        }
+    }
 }
