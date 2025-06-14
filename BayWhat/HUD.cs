@@ -15,11 +15,11 @@ namespace BayWhat
     {
         private Label _scoreLabel;
         private Label _warningLabel;
-        private int _score;
+        private uint _score;
         private Vector2f _sccoreLabelPosition;
         private Vector2f _warningLabelPosition;
 
-        public int Score
+        public uint Score
         {
             get => _score; 
             set 

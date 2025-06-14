@@ -5,8 +5,10 @@ using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BayWhat
@@ -18,16 +20,19 @@ namespace BayWhat
         private const string CONTAINER_BUTTONS_NAME = "Container Buttons";
         private const string CONTAINER_CREDITS_TEXT_NAME = "Container Credits Text";
         private const string CONTAINER_CREDITS_BUTTONS_NAME = "Container Credits Buttons";
+        private const string CONTAINER_SCORE_NAME = "Container Score";
 
         private readonly FloatRect TEXT_PADDING = new(6, 4, 6, 4);
         private Canvas _uiRoot;
         private Canvas _uiCredits;
         private Graphic _bgGraphic;
+        private string _scoreText;
 
         private Vector2f _titleContainerPosition;
         private Vector2f _buttonContainerPosition;
         private Vector2f _creditsTextContainerPosition;
         private Vector2f _creditsButtonContainerPosition;
+        private Vector2f _scoreTextContainerPosition;
 
         public Vector2f TitleContainerPosition
         {
@@ -71,6 +76,14 @@ namespace BayWhat
         }
 
 
+        public Vector2f ScoreTextContainerPosition
+        {
+            get => _scoreTextContainerPosition; 
+            set { _scoreTextContainerPosition = new(20, value.Y - 50); }
+        }
+
+
+
 
         public MenuScene(Core core) : base(core, MENU_SCENE_NAME, "Assets")
         {
@@ -96,11 +109,13 @@ namespace BayWhat
             TitleContainerPosition = size;
             ButtonContainerPosition = size;
             CreditsButtonContainerPosition = size;
+            ScoreTextContainerPosition = size;
 
             foreach (var comp in _uiRoot.GetAll<UIComponent>())
             {
                 if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = TitleContainerPosition;
                 if (comp.Name == CONTAINER_BUTTONS_NAME) comp.Position = ButtonContainerPosition;
+                if (comp.Name == CONTAINER_SCORE_NAME) comp.Position = ScoreTextContainerPosition;
             }
 
             foreach (var comp in _uiCredits.GetAll<UIComponent>())
@@ -110,12 +125,38 @@ namespace BayWhat
             }
         }
 
+        //TODO: Alex bitte noch mal drüber schauen, dass das sauber ist!
+        void ReadScoreText()
+        {
+            string root = "Data";
+            if (!Directory.Exists(root)) return;
+
+            try
+            {
+                using (var stream = new FileStream($"Data\\Score.json", FileMode.Open))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var json = reader.ReadToEnd();
+                        var data = JsonSerializer.Deserialize<ScoreData>(json);
+                        _scoreText = $"{data.PlayerName} Score: {data.Score}";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         protected override bool Load()
         {
             TitleContainerPosition = _Core.DeviceSize;
             ButtonContainerPosition = _Core.DeviceSize;
             CreditsTextContainerPosition = _Core.DeviceSize;
             CreditsButtonContainerPosition = _Core.DeviceSize;
+            ScoreTextContainerPosition = _Core.DeviceSize;
 
             var bgTexture = TextureLoader.Load($"BeachNight\\NewLevelSequence.0000.png");
 
@@ -125,6 +166,8 @@ namespace BayWhat
            
 
             var uiInput = new UIInput(Input, true);
+
+            ReadScoreText();
 
             _uiRoot = new(_Core, _Core.DeviceSize)
             {
@@ -179,8 +222,21 @@ namespace BayWhat
                                InitFocusLost = HandleFocusLost
                            }
                        }
-                   }
+                   },
 
+                   new OffsetContainer(_Core, Orientation.Vertical, 10)
+                   {
+                       Name = CONTAINER_SCORE_NAME,
+                       Position = ScoreTextContainerPosition,
+                       Init = new[]
+                       {
+                            new Label(_Core, _scoreText)
+                            {
+                                BackgroundAlpha = 0.5f,
+                                BackgroundColor = Color.Blue
+                            }
+                       }
+                   }
                }
             };
 

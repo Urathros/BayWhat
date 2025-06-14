@@ -35,8 +35,10 @@ namespace BayWhat
 			_deathCounter++;
 			if(_deathCounter >= Game.DeathLimit)
 			{
+                _gameOver.Score = _hud.Score;
+				_gameOver.Visible = true;
 
-			}
+            }
 		}
 
 		protected override bool Load()
@@ -93,7 +95,8 @@ namespace BayWhat
 			//Game.IsRunning = false; // when pause menu is opened
 			Layer_Overlay.Add(_Pause);
 
-			_gameOver = new GameOverMenu(_Core, Input);
+			_gameOver = new GameOverMenu(_Core, Input) { Visible = false };
+            _gameOver.Score = _hud.Score;
 			Layer_Overlay.Add(_gameOver);
 
 			// Collision Helper
