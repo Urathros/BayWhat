@@ -19,11 +19,26 @@ namespace BayWhat
 
         private static Core _Core;
         private static Device _Device;
+        private static bool _isRunning;
 
         public static Vector2f FullHD;
 
         public static View View { get; private set; }
         public static Input Input { get; private set; }
+
+        public static bool IsRunning 
+        {
+            get => _isRunning;
+            set
+            {
+                _isRunning = value;
+                if (_isRunning) Unpaused.Invoke();
+                else Paused.Invoke();
+            }
+        }
+
+        public static event Action Paused = () => { };
+        public static event Action Unpaused = () => { };
 
         internal static void Initialize(Core core, Device device)
         {

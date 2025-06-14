@@ -73,6 +73,7 @@ namespace BayWhat
 
         public MenuScene(Core core) : base(core, MENU_SCENE_NAME)
         {
+            Name = nameof(MenuScene);
         }
 
         private void HandleFocusGained(UIComponent comp)
@@ -145,7 +146,7 @@ namespace BayWhat
                            {
                                Name = "Button Start",
                                BackgroundColor = Color.Blue,
-                               InitReleased = b => _Core.SceneManager.ChangeScene(new BeachScene(_Core)),
+                               InitReleased = b => _Core.SceneManager.ChangeScene(new TestScene(_Core)),
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
                            },
