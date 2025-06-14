@@ -38,8 +38,8 @@ namespace BayWhat
 
             Game.IsRunning = true;
 
-            _npcs = new NPCManager(_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
-            _npcs.AddEntities(50);
+            //_npcs = new NPCManager(_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
+            //_npcs.AddEntities(50);
 
             //_pause = new(_Core, Input);
             //Game.IsRunning = false; // when pause menu is opened

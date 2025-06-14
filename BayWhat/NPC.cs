@@ -1,6 +1,7 @@
 ﻿using BlackCoat;
 using BlackCoat.Animation;
 using BlackCoat.Collision;
+using BlackCoat.Collision.Shapes;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using SFML.Graphics;
@@ -16,9 +17,12 @@ namespace BayWhat
 {
     enum NPCState : byte
     {
+        Idle,
         Dancing,
+        Partying,
         Drunken,
         Swiming,
+        Drowning,
         Rescue
     }
     internal class NPC : Container
@@ -50,11 +54,12 @@ namespace BayWhat
         /// Walking Direction
         /// </summary>
         Vector2f _direction;
+        Vector2f _drowningPos = new(0f, 0f);
         float _deltaT;
         float _speed;
         float _duration;
 
-        public ICollisionShape OceanCollision { get; set; }
+        public RectangleCollisionShape OceanCollision { get; set; }
 
         #endregion
         public NPCState State { get; set; }
@@ -66,6 +71,10 @@ namespace BayWhat
             set => _sprite.Position = value; 
         }
 
+        Vector2f CalcDirection(Vector2f startDir, Vector2f endDir)
+        {
+            return (endDir - startDir).Normalize();
+        }
 
         void HandleMoving(Vector2f dir)
         {
@@ -102,7 +111,13 @@ namespace BayWhat
                     break;
                 case NPCState.Swiming:
                     _speed = _Core.Random.NextFloat(MIN_SWIM_SPEED, MAX_SWIM_SPEED);
-                    _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleDirectionChange);
+                    if(_drowningPos == new Vector2f(0f, 0f)) _drowningPos = _Core.Random.NextVector(OceanCollision.Position.X,
+                                                              OceanCollision.Position.X + OceanCollision.Size.X,
+                                                              OceanCollision.Position.Y,
+                                                              OceanCollision.Position.Y + OceanCollision.Size.Y);
+                    _Core.AnimationManager.RunAdvanced( START_VAL, END_VAL, DURATION, 
+                                                        v => HandleMoving( CalcDirection(_direction, _drowningPos)), HandleDirectionChange);
+                    if (Position.Y >= _drowningPos.Y) State = NPCState.Drowning;
                     break;
                 case NPCState.Rescue:
                     break;
@@ -137,7 +152,7 @@ namespace BayWhat
 
             //TODO: _sprite muss Sprite werden
             if (OceanCollision.CollidesWith(_sprite) && State == NPCState.Drunken) State = NPCState.Swiming;
-
+            
         }
 
 
