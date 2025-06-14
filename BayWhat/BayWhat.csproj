@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Assets\baywhat_mc.png" />
+    <None Remove="Assets\baywhat_tileset.png" />
+    <None Remove="Assets\Level1.tmx" />
     <None Remove="Assets\test.tmx" />
     <None Remove="Assets\tileset.png" />
   </ItemGroup>
@@ -17,10 +19,10 @@
     <Content Include="Assets\baywhat_mc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\test.tmx">
+    <Content Include="Assets\baywhat_tileset.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\tileset.png">
+    <Content Include="Assets\Level1.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
