@@ -1,5 +1,6 @@
 ﻿using BlackCoat;
 using BlackCoat.Animation;
+using BlackCoat.Collision;
 using BlackCoat.Entities;
 using SFML.Graphics;
 using SFML.System;
@@ -24,11 +25,15 @@ namespace BayWhat
         /// </summary>
         public float DrunkSeconds { get; set; }
 
-        public NPCManager(Core core, FloatRect area, float drunkSeconds) : base(core)
+
+        private ICollisionShape _oceanCollision;
+
+        public NPCManager(Core core, FloatRect area, float drunkSeconds, ICollisionShape oceanCollision) : base(core)
         {
             _area = area;
             DrunkSeconds = drunkSeconds;
-            _Core.AnimationManager.Wait(DrunkSeconds, HandleDrunkenStateRandom);
+            _oceanCollision = oceanCollision;
+            _Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds -2, DrunkSeconds+2), HandleDrunkenStateRandom);
         }
 
         private void HandleDrunkenStateRandom()
@@ -42,13 +47,14 @@ namespace BayWhat
             }
 
             npc.State = NPCState.Drunken;
-            _Core.AnimationManager.Wait(DrunkSeconds, HandleDrunkenStateRandom);
+            _Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds - 2, DrunkSeconds + 2), HandleDrunkenStateRandom);
         }
 
         public NPCManager AddEntity(Vector2f position)
         {
             var npc = new NPC(_Core);
             npc.Position = position;
+            npc.OceanCollision = _oceanCollision;
             Add(npc);
             return this;
         }

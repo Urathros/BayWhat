@@ -1,5 +1,6 @@
 ﻿using BlackCoat;
 using BlackCoat.Animation;
+using BlackCoat.Collision;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using SFML.Graphics;
@@ -18,7 +19,7 @@ namespace BayWhat
         Dancing,
         Drunken,
         Swiming,
-        Rescure
+        Rescue
     }
     internal class NPC : Container
     {
@@ -27,6 +28,8 @@ namespace BayWhat
         const float START_VAL = 0f;
         const float END_VAL = 1f;
         const float DURATION = .5f;
+        const float MIN_DANCE_SPEED = 48f;
+        const float MAX_DANCE_SPEED = 52f;
 
         readonly Vector2f FORWARD = new(0f, 1f);
         readonly Vector2f BACKWARD = new(0f, -1f);
@@ -36,6 +39,9 @@ namespace BayWhat
         #endregion
 
         #region Fields
+
+
+        //TODO: _sprite muss Sprite werden
         Rectangle _sprite;
 
         /// <summary>
@@ -45,6 +51,8 @@ namespace BayWhat
         float _deltaT;
         float _speed;
         float _duration;
+
+        public ICollisionShape OceanCollision { get; set; }
 
         #endregion
         public NPCState State { get; set; }
@@ -89,7 +97,7 @@ namespace BayWhat
                     break;
                 case NPCState.Swiming:
                     break;
-                case NPCState.Rescure:
+                case NPCState.Rescue:
                     break;
                 default:
                     break;
@@ -102,11 +110,10 @@ namespace BayWhat
             Name = $"{nameof(NPC)}_{name}";
 
             _sprite ??= new(core, new Vector2f(32f, 32f), Color.Blue);
-            //_sprite.Position = _Core.DeviceSize / 2;
             _sprite.Origin = _sprite.Size / 2;
             Add(_sprite);
             _direction = FORWARD;
-            _speed = (float)_Core.Random.Next(48, 52);
+            _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
             _duration = _Core.Random.NextFloat(.4f, .6f);
             State = NPCState.Dancing;
             
@@ -120,7 +127,10 @@ namespace BayWhat
             base.Update(deltaT);
 
             _deltaT = deltaT;
-            
+
+            //TODO: _sprite muss Sprite werden
+            if (OceanCollision.CollidesWith(_sprite) && State == NPCState.Drunken) State = NPCState.Swiming;
+
         }
 
 
