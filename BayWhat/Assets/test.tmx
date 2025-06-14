@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="77">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="77">
  <tileset firstgid="1" name="RootsGGJ" tilewidth="64" tileheight="64" tilecount="20" columns="5">
   <image source="tileset.png" width="320" height="256"/>
  </tileset>
@@ -42,24 +42,7 @@
   <object id="23" x="1152" y="592" width="128" height="48"/>
   <object id="44" x="320" y="400" width="64" height="48"/>
   <object id="45" x="1536" y="400" width="64" height="48"/>
-  <object id="51" type="Start" x="104" y="386" width="64" height="64"/>
-  <object id="52" type="Start" x="1767" y="385" width="64" height="64"/>
-  <object id="55" type="Pickup" x="125.5" y="535" width="19.75" height="17.25"/>
-  <object id="57" x="233.167" y="663.667" width="15.3333" height="17"/>
-  <object id="59" type="Pickup" x="315.5" y="665.667" width="12.3333" height="15.6667"/>
-  <object id="61" x="703.167" y="595.833" width="14.6667" height="18.6667"/>
-  <object id="62" type="Pickup" x="575" y="856.25" width="26" height="27"/>
-  <object id="63" type="Pickup" x="681" y="982" width="20" height="23"/>
-  <object id="64" type="Pickup" x="764.5" y="983.5" width="21.5" height="22"/>
-  <object id="65" type="Pickup" x="839.5" y="982" width="17.5" height="24.5"/>
-  <object id="66" type="Pickup" x="1236.5" y="982" width="16.5" height="21.5"/>
-  <object id="67" type="Pickup" x="1153" y="985" width="14" height="23"/>
-  <object id="68" type="Pickup" x="1056.5" y="984" width="17" height="26"/>
-  <object id="69" type="Pickup" x="1345.5" y="849" width="25" height="22"/>
-  <object id="70" type="Pickup" x="1571" y="656.5" width="17" height="21.5"/>
-  <object id="71" type="Pickup" x="1625.5" y="656.5" width="21" height="26"/>
-  <object id="72" type="Pickup" x="1695" y="656.5" width="19.5" height="23"/>
-  <object id="74" type="Pickup" x="1793" y="535" width="20" height="22.5"/>
-  <object id="76" type="Pickup" x="1215" y="600" width="15.5" height="14.25"/>
+  <object id="51" type="P1Start" x="104" y="386" width="64" height="64"/>
+  <object id="52" type="P2Start" x="1767" y="385" width="64" height="64"/>
  </objectgroup>
 </map>

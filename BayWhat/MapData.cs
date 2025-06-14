@@ -16,8 +16,9 @@ namespace BayWhat
         public Vector2i TileSize { get; private set; }
         public Layer[] Layer { get; private set; }
         public CollisionObject[] Collisions { get; private set; }
+		public Vector2i TotalPixelSize => new Vector2i(MapSize.X * TileSize.X, MapSize.Y * TileSize.Y);
 
-        public void Load(Core core, string file)
+		public void Load(Core core, string file)
         {
             // Load Collisions
             var map = new List<(CollisionType type, RectangleCollisionShape collision)>();
@@ -86,8 +87,9 @@ namespace BayWhat
     enum CollisionType
     {
         Normal,
-        Killzone,
-        Start,
-        Pickup
+        P1Start,
+        P2Start,
+        PartyArea,
+        Ocean
     }
 }
