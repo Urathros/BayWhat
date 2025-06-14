@@ -16,6 +16,7 @@ namespace BayWhat
 		private IntRect _ViewBounds;
         private NPCManager _Npcs;
         private PauseMenu _Pause;
+		private HUD _hud;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
@@ -61,6 +62,9 @@ namespace BayWhat
 			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea);
 			_Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
+
+			_hud = new(_Core, Input);
+			Layer_Overlay.Add(_hud);
 
 			// PauseMenu
 			_Pause = new PauseMenu(_Core, Input) { Visible = false };
