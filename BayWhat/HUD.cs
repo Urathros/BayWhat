@@ -80,6 +80,7 @@ namespace BayWhat
 
             _scoreLabel = Game.GetPixelLabel(core, "Score: xxxxxxxx", 60);
             _scoreLabel.Position = ScoreLabelPosition;
+            _scoreLabel.BackgroundAlpha = 0.5f;
 
             _warningLabel = Game.GetPixelLabel(core, "WARNING", 150);
             _warningLabel.TextColor = Color.Red;

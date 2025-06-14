@@ -76,7 +76,10 @@ namespace BayWhat
         }
 		public Vector2f CollisionOffset { get; }
 
-		Vector2f CalcDirection(Vector2f startDir, Vector2f endDir)
+
+        public Action Dying = () => { };
+
+        Vector2f CalcDirection(Vector2f startDir, Vector2f endDir)
         {
             return (endDir - startDir).Normalize();
         }

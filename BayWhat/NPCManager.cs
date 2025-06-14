@@ -35,6 +35,8 @@ namespace BayWhat
         private HUD _hud;
 		private readonly TextureLoader _TextureLoader;
 
+        public Action Dying = () => { };
+
 		public NPCManager(Core core, FloatRect partyArea, float drunkSeconds, RectangleCollisionShape oceanCollision, TextureLoader textureLoader, HUD hud) : base(core)
         {
             _partyArea = partyArea;
@@ -66,6 +68,7 @@ namespace BayWhat
             npc.OceanCollision = _oceanCollision;
             npc.PartyArea = _partyArea;
             npc.Hud = _hud;
+            npc.Dying += () => Dying.Invoke();
             Add(npc);
             return this;
         }

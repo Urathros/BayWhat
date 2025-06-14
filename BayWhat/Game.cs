@@ -26,6 +26,7 @@ namespace BayWhat
 
         public static Vector2f FullHD;
         public static readonly float DrowningTime = 5f;
+        public static readonly uint DeathLimit = 7;
 
         public static View View { get; private set; }
         public static Input Input { get; private set; }

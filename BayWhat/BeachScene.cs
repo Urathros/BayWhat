@@ -19,9 +19,20 @@ namespace BayWhat
         private NPCManager _Npcs;
         private PauseMenu _Pause;
 		private HUD _hud;
+		private uint _deathCounter;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
+			_deathCounter = 0;
+		}
+
+		private void HandleDying()
+		{
+			_deathCounter++;
+			if(_deathCounter >= Game.DeathLimit)
+			{
+
+			}
 		}
 
 		protected override bool Load()
@@ -66,6 +77,7 @@ namespace BayWhat
 			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
 			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
 			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea, TextureLoader, _hud);
+			_Npcs.Dying += HandleDying;
 			_Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
 
