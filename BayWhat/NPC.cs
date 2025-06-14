@@ -57,9 +57,10 @@ namespace BayWhat
         Vector2f _drowningPos = new(0f, 0f);
         float _deltaT;
         float _speed;
-        float _duration;
 
         public RectangleCollisionShape OceanCollision { get; set; }
+
+        public FloatRect PartyArea { get; set; }
 
         #endregion
         public NPCState State { get; set; }
@@ -76,21 +77,49 @@ namespace BayWhat
             return (endDir - startDir).Normalize();
         }
 
+        void DecideDirection()
+        {
+            var rand = _Core.Random.Next(1, 5);
+            switch (rand)
+            {
+                case 1: _direction = FORWARD; break;
+                case 2: _direction = LEFT; break;
+                case 3: _direction = BACKWARD; break;
+                case 4: _direction = RIGHT;  break;
+                default:
+                    break;
+            }
+        }
+
         void HandleMoving(Vector2f dir)
         {
             if (!Game.IsRunning) return;
 
-            switch (_Core.Random.Next(1, 5))
-            {
-                case 1: _direction = FORWARD; break;
-                case 2: _direction = LEFT;break;
-                case 3: _direction = BACKWARD;break;
-                case 4: _direction = RIGHT; break;
-                default:
-                    break;
-            }
-            
-            _sprite.Translate(dir * _speed * _deltaT);
+            DecideDirection();
+            //if (State == NPCState.Dancing && dir == FORWARD && (Position.Y + FORWARD.Y) >= (PartyArea.Top + PartyArea.Height))
+            //{
+            //    //HandleMoving(dir);
+            //}
+            //if (State == NPCState.Dancing && dir == LEFT && (Position.X + LEFT.X) <= (PartyArea.Left))
+            //{
+            //    HandleMoving(dir);
+            //    return;
+            //}
+            //if (State == NPCState.Dancing && dir == RIGHT && (Position.Y + BACKWARD.Y) <= (PartyArea.Top))
+            //{
+            //    DecideDirection();
+            //    return;
+            //}
+            //if (State == NPCState.Dancing && dir == BACKWARD && (Position.X + RIGHT.X) >= (PartyArea.Left + PartyArea.Width))
+            //{
+            //    DecideDirection();
+            //    return;
+            //}
+            var potientialX = dir.X + Position.X;
+            var potentialY = dir.Y + Position.Y;
+            if ((potientialX < PartyArea.Left || potientialX > PartyArea.Left + PartyArea.Width || potentialY < PartyArea.Top || potentialY > PartyArea.Top + PartyArea.Height)&& State == NPCState.Dancing) { }
+            else _sprite.Translate(dir * _speed * _deltaT);
+
         }
 
         void HandleDirectionChange(Animation? anim = null)
@@ -121,6 +150,9 @@ namespace BayWhat
                     break;
                 case NPCState.Rescue:
                     break;
+                case NPCState.Drowning:
+                    _Core.AnimationManager.Wait(Game.DrowningTime, () =>  Parent.Remove(this));
+                    break;
                 default:
                     break;
             }
@@ -136,7 +168,6 @@ namespace BayWhat
             Add(_sprite);
             _direction = FORWARD;
             _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
-            _duration = _Core.Random.NextFloat(.4f, .6f);
             State = NPCState.Dancing;
 
             Game.Unpaused += () =>  HandleDirectionChange();

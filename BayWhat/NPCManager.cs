@@ -17,7 +17,7 @@ namespace BayWhat
     internal class NPCManager : Container
     {
         
-        FloatRect _area;
+        FloatRect _partyArea;
 
         const float DURATION = 1f;
 
@@ -29,9 +29,9 @@ namespace BayWhat
 
         private RectangleCollisionShape _oceanCollision;
 
-        public NPCManager(Core core, FloatRect area, float drunkSeconds, RectangleCollisionShape oceanCollision) : base(core)
+        public NPCManager(Core core, FloatRect partyArea, float drunkSeconds, RectangleCollisionShape oceanCollision) : base(core)
         {
-            _area = area;
+            _partyArea = partyArea;
             DrunkSeconds = drunkSeconds;
             _oceanCollision = oceanCollision;
             _Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds -2, DrunkSeconds+2), HandleDrunkenStateRandom);
@@ -56,13 +56,14 @@ namespace BayWhat
             var npc = new NPC(_Core);
             npc.Position = position;
             npc.OceanCollision = _oceanCollision;
+            npc.PartyArea = _partyArea;
             Add(npc);
             return this;
         }
 
         public void AddEntities(int size)
         {
-            for (int i = 0; i < size; i++) AddEntity(_Core.Random.NextVector(_area));
+            for (int i = 0; i < size; i++) AddEntity(_Core.Random.NextVector(_partyArea));
         }
 
     }

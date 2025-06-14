@@ -24,6 +24,7 @@ namespace BayWhat
         private static FontLoader _font = new("Assets");
 
         public static Vector2f FullHD;
+        public static readonly float DrowningTime = 5f;
 
         public static View View { get; private set; }
         public static Input Input { get; private set; }
