@@ -1,38 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlackCoat;
+﻿using BlackCoat;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using BlackCoat.InputMapping;
 using SFML.System;
 using SFML.Graphics;
 using BlackCoat.Entities.Animation;
-using BlackCoat.AssetHandling;
-using SFML.Audio;
 using BlackCoat.Collision.Shapes;
 
 namespace BayWhat
 {
-
     class Player : Container
     {
         private SimpleInputMap<GameAction> _InputMap;
         public event Action Act = () => { };
 
         private BlittingAnimation _Walk;
-        private BlittingAnimation _WalkUp;
-        private BlittingAnimation _Overlay;
-        private BlittingAnimation _OverlayUp;
 
         private Vector2f _Dimensions;
         private Vector2f _DimensionsCenter;
         private Vector2f _Direction;
         private Vector2f _Velocity = new(100,100);
-        private bool _Locked;
-        private bool _HitLocked;
 
         public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
         {
@@ -106,7 +93,7 @@ namespace BayWhat
 
             // MOVE
             Position += _Direction.MultiplyBy(_Velocity) * deltaT;
-            (CollisionShape as RectangleCollisionShape).Position = Position;
+            (CollisionShape as RectangleCollisionShape)!.Position = Position;
 
             if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
         }
