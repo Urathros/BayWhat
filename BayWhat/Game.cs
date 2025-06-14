@@ -23,6 +23,8 @@ namespace BayWhat
         private static Device _Device;
         private static bool _isRunning;
         private static FontLoader _font = new("Assets");
+        private static MusicLoader _music = new("Assets");
+        private static Music _bgm;
 
         public static Vector2f FullHD;
         public static readonly float DrowningTime = 5f;
@@ -56,6 +58,8 @@ namespace BayWhat
             View = new View(FullHD / 2, FullHD);
             _Core.DeviceResized += HandleDeviceResized;
             HandleDeviceResized(_Core.DeviceSize);
+            _bgm = _music.Load("Mischung_Aus_Markus_Zeug_Viel_Spass_Mit_Dem_Langen_Dateinamen");
+            _bgm.Play();
         }
 
         public static SimpleInputMap<GameAction> CreateInput(uint player = 0)
