@@ -14,11 +14,8 @@ namespace BayWhat
 		private View _View;
 		private Vector2i _MapSize;
 		private IntRect _ViewBounds;
-        private NPCManager _npcs;
-        private Rectangle _ocean;
-        private PauseMenu _pause;
-
-        public View VVV => _View;
+        private NPCManager _Npcs;
+        private PauseMenu _Pause;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
@@ -33,9 +30,9 @@ namespace BayWhat
 			_Core.DeviceResized += HandleDeviceResize;
 
 			// Tile Map
-			var tex = TextureLoader.Load("tileset");
+			var tex = TextureLoader.Load("baywhat_tileset");
 			var mapData = new MapData();
-			mapData.Load(_Core, $"Assets\\test.tmx");
+			mapData.Load(_Core, $"Assets\\Level1.tmx");
 			_MapSize = mapData.TotalPixelSize;
 			foreach (var layer in mapData.Layer)
 			{
@@ -58,19 +55,17 @@ namespace BayWhat
 			HandleDeviceResize(_Core.DeviceSize);
 
             // NPC
-            _ocean = new(_Core, _Core.DeviceSize, Color.Blue);
-            _ocean.Position = new(0, _Core.DeviceSize.Y - 1);
-
 			Game.IsRunning = true;
-			_npcs = new (_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
-			_npcs.AddEntities(50);
-			Layer_Game.Add(_npcs);
-			Layer_Game.Add(_ocean);
+			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
+			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
+			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea);
+			_Npcs.AddEntities(50);
+			Layer_Game.Add(_Npcs);
 
-			//// Pause
-			_pause = new PauseMenu(_Core, Input);
-			Game.IsRunning = false; // when pause menu is opened
-			Layer_Overlay.Add(_pause);
+			// PauseMenu
+			_Pause = new PauseMenu(_Core, Input) { Visible = false };
+			//Game.IsRunning = false; // when pause menu is opened
+			Layer_Overlay.Add(_Pause);
 			return true;
 		}
 

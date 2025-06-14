@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" source="../../../GameJam/baywhat map tiles.tsx"/>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="13">
+ <tileset firstgid="1" name="baywhat map tiles" tilewidth="32" tileheight="32" tilecount="88" columns="8">
+  <image source="baywhat_tileset.png" width="256" height="352"/>
+ </tileset>
  <layer id="1" name="Terrain" width="50" height="30">
   <data encoding="csv">
 3,1,2,3,3,4,3,3,3,1,2,3,4,5,6,7,3,3,4,3,3,3,3,3,1,2,3,3,3,4,3,2147483650,2147483649,3,3,3,4,3,3,3,2147483652,3,2147483650,2147483649,3,3,3,2147483652,3,3,
@@ -69,4 +71,17 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="3" name="Collisions">
+  <object id="1" x="333" y="332" width="38" height="41"/>
+  <object id="2" x="140" y="457" width="36" height="45"/>
+  <object id="3" x="1193" y="454" width="44" height="50"/>
+  <object id="4" x="-8" y="-4" width="42" height="970"/>
+  <object id="5" x="-20" y="-26" width="1630" height="98"/>
+  <object id="6" x="1578" y="-24" width="38" height="1008"/>
+  <object id="7" x="-34" y="926" width="1648" height="64"/>
+  <object id="9" type="Ocean" x="56" y="604" width="1498" height="272"/>
+  <object id="10" type="PartyArea" x="432" y="312" width="730" height="214"/>
+  <object id="11" type="P1Start" x="266" y="396" width="30" height="32"/>
+  <object id="12" type="P2Start" x="672" y="730" width="36" height="30"/>
+ </objectgroup>
 </map>
