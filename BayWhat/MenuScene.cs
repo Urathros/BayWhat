@@ -37,8 +37,24 @@ namespace BayWhat
             {
                 Input = uiInput,
                 BackgroundColor = Color.Cyan,
-                Init = new[]
+                Init = new []
                {
+                   new OffsetContainer(_Core, Orientation.Vertical, 10)
+                   {
+                       Position = new Vector2f()
+                       {
+                           X = _Core.DeviceSize.X / 2,
+                           Y = _Core.DeviceSize.Y / 2 - 50
+                       },
+                       Init = new[]
+                       {
+                           new Label(_Core, "BayWhat?!?")
+                           //{
+                           //    Padding = new FloatRect(new (0f, 0f), new (100, 30)),
+                           //    Scale = 
+                           //}
+                       }
+                   },
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
                    {
                        Position = _Core.DeviceSize / 2,
@@ -48,7 +64,7 @@ namespace BayWhat
                            {
                                Name = "Button Start",
                                BackgroundColor = Color.Blue,
-                               InitReleased = b => _Core.SceneManager.ChangeScene(new TestScene(_Core)),
+                               InitReleased = b => _Core.SceneManager.ChangeScene(new BeachScene(_Core)),
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
                            },
@@ -84,7 +100,11 @@ namespace BayWhat
                 {
                     new OffsetContainer(_Core, Orientation.Vertical, 10)
                     {
-                       Position = _Core.DeviceSize / 2,
+                        Position = new Vector2f()
+                       {
+                           X = 0,
+                           Y = _Core.DeviceSize.Y - 20
+                       },
                        Init = new[]
                        {
                            new Button(_Core, null, new Label(_Core, "Return") {Padding = TEXT_PADDING})
