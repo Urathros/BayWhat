@@ -5,6 +5,7 @@ using BlackCoat.InputMapping;
 using SFML.Graphics;
 using SFML.System;
 using System.ComponentModel;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace BayWhat
 {
@@ -22,6 +23,7 @@ namespace BayWhat
 		private GameOverMenu _gameOver;
 		private HUD _hud;
 		private uint _deathCounter;
+		private Vector2f _DevSize;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
@@ -69,6 +71,7 @@ namespace BayWhat
 			_Player1.Act += OnP1Act;
 
 			Layer_Game.Add(_Player1);
+			_DevSize = _Core.DeviceSize;
 			HandleDeviceResize(_Core.DeviceSize);
 
 			_hud = new(_Core, Input);
@@ -106,8 +109,12 @@ namespace BayWhat
 
 		private void HandleDeviceResize(Vector2f deviceSize)
 		{
-			_View.Size = deviceSize;
-			Vector2i half = deviceSize.ToVector2i() / 2;
+			var scaleX = (float)deviceSize.X / _DevSize.X;
+			var scaleY = (float)deviceSize.Y / _DevSize.Y;
+			var m = (scaleX + scaleY) / 2; // or sqrt(scaleX * scaleY) for geometric mean
+			_View.Size = deviceSize / m / 2;
+
+			Vector2i half = _View.Size.ToVector2i() / 2;
 			_ViewBounds = new IntRect(half, _MapSize - half);
 		}
 
@@ -129,7 +136,6 @@ namespace BayWhat
 
 		private void OnP1Act(bool activate)
 		{
-			Log.Debug(activate);
 			if (activate)
 			{
 				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player1.CollisionShape));
