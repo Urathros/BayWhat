@@ -80,6 +80,8 @@ namespace BayWhat
                     }
                 }
             };
+
+            _Core.DeviceResized += HandleResize;
         }
 
 
@@ -105,5 +107,26 @@ namespace BayWhat
             _Core.SceneManager.ChangeScene(new MenuScene(_Core));
         }
 
+        //TODO: Resize Bug, i'm tired
+        private void HandleResize(Vector2f size)
+        {
+            if (Disposed)
+            {
+                _Core.DeviceResized -= HandleResize;
+                return;
+            }
+
+            ButtonContainerPosition = size;
+
+            foreach (var comp in GetAll<UIComponent>())
+            {
+                foreach (var innerComp in comp.GetAll<UIComponent>())
+                {
+                    if (innerComp.Name == CONTAINER_BUTTONS_NAME) comp.Position = ButtonContainerPosition;
+                }
+
+            }
+
+        }
     }
 }

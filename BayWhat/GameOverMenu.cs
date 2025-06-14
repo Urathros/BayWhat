@@ -171,6 +171,7 @@ namespace BayWhat
            
         }
 
+        //TODO: Resize Bug, i'm tired
         private void HandleResize(Vector2f size)
         {
             if (Disposed)
