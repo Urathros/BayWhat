@@ -239,6 +239,7 @@ namespace BayWhat
         }
         protected override void Destroy()
         {
+            _Core.DeviceResized -= HandleResize;
         }
 
     }
