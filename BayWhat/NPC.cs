@@ -69,6 +69,8 @@ namespace BayWhat
 
         void HandleMoving(Vector2f dir)
         {
+            if (!Game.IsRunning) return;
+
             switch (_Core.Random.Next(1, 5))
             {
                 case 1: _direction = FORWARD; break;
@@ -84,6 +86,7 @@ namespace BayWhat
 
         void HandleDirectionChange(Animation? anim = null)
         {
+            if (!Game.IsRunning) return;
             switch (State)
             {
                 case NPCState.Dancing:
@@ -120,8 +123,8 @@ namespace BayWhat
             _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
             _duration = _Core.Random.NextFloat(.4f, .6f);
             State = NPCState.Dancing;
-            
 
+            Game.Unpaused += () =>  HandleDirectionChange();
 
             HandleDirectionChange();
         }

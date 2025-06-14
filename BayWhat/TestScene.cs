@@ -16,10 +16,11 @@ namespace BayWhat
     {
         NPCManager _npcs;
         Rectangle _ocean;
+        PauseMenu _pause;
 
         public TestScene(Core core) : base(core, string.Empty)
         {
-         
+            Name = nameof(TestScene);
         }
 
         protected override bool Load()
@@ -37,8 +38,13 @@ namespace BayWhat
             _npcs = new NPCManager(_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
             _npcs.AddEntities(50);
 
+            _pause = new(_Core, Input);
+            Game.IsRunning = false; // when pause menu is opened
+
             Layer_Game.Add(_npcs);
             Layer_Game.Add(_ocean);
+            Layer_Game.Add(_pause);
+            
             return true;
         }
 

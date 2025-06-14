@@ -27,7 +27,7 @@ namespace BayWhat
 			core.Debug = true;
 #endif
 			Game.Initialize(core, device);
-			core.SceneManager.ChangeScene(new BeachScene(core));
+			core.SceneManager.ChangeScene(new MenuScene(core));
 			core.Run();
 		}
 	}

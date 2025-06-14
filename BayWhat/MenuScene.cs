@@ -1,4 +1,5 @@
 ﻿using BlackCoat;
+using BlackCoat.Entities;
 using BlackCoat.UI;
 using SFML.Graphics;
 using SFML.System;
@@ -12,12 +13,67 @@ namespace BayWhat
 {
     internal class MenuScene : Scene
     {
+        private const string MENU_SCENE_NAME = "Menu Scene";
+        private const string CONTAINER_TITLE_NAME = "Container Title";
+        private const string CONTAINER_BUTTONS_NAME = "Container Buttons";
+        private const string CONTAINER_CREDITS_TEXT_NAME = "Container Credits Text";
+        private const string CONTAINER_CREDITS_BUTTONS_NAME = "Container Credits Buttons";
+
         private readonly FloatRect TEXT_PADDING = new(6, 4, 6, 4);
         private Canvas _uiRoot;
         private Canvas _uiCredits;
 
-        public MenuScene(Core core) : base(core, "Menu")
+        private Vector2f _titleContainerPosition;
+        private Vector2f _buttonContainerPosition;
+        private Vector2f _creditsTextContainerPosition;
+        private Vector2f _creditsButtonContainerPosition;
+
+        public Vector2f TitleContainerPosition
         {
+            get => _titleContainerPosition; 
+            set 
+            {
+                _titleContainerPosition.X = value.X / 2;
+                _titleContainerPosition.Y = value.Y / 2 - 50;
+            }
+        }
+
+
+
+        public Vector2f ButtonContainerPosition
+        {
+            get => _buttonContainerPosition;
+            set
+            {
+                _buttonContainerPosition = value / 2;
+            }
+        }
+
+        public Vector2f CreditsTextContainerPosition
+        {
+            get => _creditsTextContainerPosition; 
+            set 
+            {
+                _creditsTextContainerPosition.X = 32;
+                _creditsTextContainerPosition.Y = value.Y / 4f; 
+            }
+        }
+
+        public Vector2f CreditsButtonContainerPosition
+        {
+            get => _creditsButtonContainerPosition;
+            set
+            {
+                _creditsButtonContainerPosition.X = 0;
+                _creditsButtonContainerPosition.Y = value.Y - 20;
+            }
+        }
+
+
+
+        public MenuScene(Core core) : base(core, MENU_SCENE_NAME)
+        {
+            Name = nameof(MenuScene);
         }
 
         private void HandleFocusGained(UIComponent comp)
@@ -30,18 +86,60 @@ namespace BayWhat
             comp.BackgroundColor = Color.Blue;
         }
 
+        private void HandleResize(Vector2f size)
+        {
+            _uiRoot.Resize(size);
+            _uiCredits.Resize(size);
+
+
+            TitleContainerPosition = size;
+            ButtonContainerPosition = size;
+            CreditsButtonContainerPosition = size;
+
+            foreach (var comp in _uiRoot.GetAll<UIComponent>())
+            {
+                if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = TitleContainerPosition;
+                if (comp.Name == CONTAINER_BUTTONS_NAME) comp.Position = ButtonContainerPosition;
+            }
+
+            foreach (var comp in _uiCredits.GetAll<UIComponent>())
+            {
+                if (comp.Name == CONTAINER_CREDITS_TEXT_NAME) comp.Position = CreditsTextContainerPosition;
+                if (comp.Name == CONTAINER_CREDITS_BUTTONS_NAME) comp.Position = CreditsButtonContainerPosition;
+            }
+        }
+
         protected override bool Load()
         {
+            TitleContainerPosition = _Core.DeviceSize;
+            ButtonContainerPosition = _Core.DeviceSize;
+            CreditsTextContainerPosition = _Core.DeviceSize;
+            CreditsButtonContainerPosition = _Core.DeviceSize;
+
             var uiInput = new UIInput(Input, true);
             _uiRoot = new(_Core, _Core.DeviceSize)
             {
                 Input = uiInput,
                 BackgroundColor = Color.Cyan,
-                Init = new[]
+                Init = new UIComponent[]
                {
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
                    {
-                       Position = _Core.DeviceSize / 2,
+                       Name = CONTAINER_TITLE_NAME,
+                       Position = TitleContainerPosition,
+                       Init = new[]
+                       {
+                           new Label(_Core, "BayWhat?!?")
+                           //{
+                           //    Padding = new FloatRect(new (0f, 0f), new (100, 30)),
+                           //    Scale = 
+                           //}
+                       }
+                   },
+                   new OffsetContainer(_Core, Orientation.Vertical, 10)
+                   {
+                       Name = CONTAINER_BUTTONS_NAME,
+                       Position = ButtonContainerPosition,
                        Init = new[]
                        {
                            new Button(_Core, null, new Label(_Core, "Start") {Padding = TEXT_PADDING})
@@ -84,7 +182,25 @@ namespace BayWhat
                 {
                     new OffsetContainer(_Core, Orientation.Vertical, 10)
                     {
-                       Position = _Core.DeviceSize / 2,
+                        Name = CONTAINER_CREDITS_TEXT_NAME,
+                        Position = CreditsTextContainerPosition,
+                        Init = new[]
+                        {
+
+                           new Label(_Core, "Credits"),
+                           new Label(_Core, ""),
+                           new Label(_Core, "Alexander Schwahl"),
+                           new Label(_Core, "Monika Zagorac"),
+                           new Label(_Core, "Jochen Köhler"),
+                           new Label(_Core, "Louis Friedl"),
+                           new Label(_Core, "Marcus Schaal")
+                        }
+                    },
+
+                    new OffsetContainer(_Core, Orientation.Vertical, 10)
+                    {
+                        Name = CONTAINER_CREDITS_BUTTONS_NAME,
+                        Position = CreditsButtonContainerPosition,
                        Init = new[]
                        {
                            new Button(_Core, null, new Label(_Core, "Return") {Padding = TEXT_PADDING})
@@ -101,7 +217,8 @@ namespace BayWhat
             };
 
             Layer_Game.Add(_uiRoot);
-            _Core.DeviceResized += _uiRoot.Resize;
+            _Core.DeviceResized += HandleResize;
+            
 
             return true;
         }
