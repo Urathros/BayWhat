@@ -1,8 +1,10 @@
 ﻿using BlackCoat;
+using BlackCoat.Collision.Shapes;
 using BlackCoat.Entities.Shapes;
 using BlackCoat.InputMapping;
 using SFML.Graphics;
 using SFML.System;
+using System.ComponentModel;
 
 namespace BayWhat
 {
@@ -50,6 +52,7 @@ namespace BayWhat
 			{
 				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};
+			_Player1.Act += OnP1Act;
 			
 			Layer_Game.Add(_Player1);
 			HandleDeviceResize(_Core.DeviceSize);
@@ -66,6 +69,15 @@ namespace BayWhat
 			_Pause = new PauseMenu(_Core, Input) { Visible = false };
 			//Game.IsRunning = false; // when pause menu is opened
 			Layer_Overlay.Add(_Pause);
+
+			// Collision Helper
+			/*
+			Layer_Game.Add(new ColHelp(_Core, _Player1.CollisionShape));
+			foreach (var item in _Npcs.GetAll<NPC>())
+			{
+				Layer_Game.Add(new ColHelp(_Core, item.CollisionShape));
+			}
+			*/
 			return true;
 		}
 
@@ -89,6 +101,40 @@ namespace BayWhat
 
 		protected override void Destroy()
 		{
+		}
+
+		private void OnP1Act(bool activate)
+		{
+			Log.Debug(activate);
+			if(activate)
+			{
+				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player1.CollisionShape));
+				if(npc != null)
+				{
+					npc.Position = default;
+					npc.State = NPCState.Rescue;
+					_Player1.Add(npc);
+				}
+			}
+			else
+			{
+				var npc = _Player1.GetAll<NPC>().FirstOrDefault();
+				if (npc != null)
+				{
+					if (_Player1.CollisionShape.CollidesWith(_Collisions.First(c => c.Type == CollisionType.Ocean).Shape))
+					{ // TODO check if npc is actually drowning
+						npc.Position = default;
+						npc.State = NPCState.Rescue;
+						_Player1.Add(npc);
+					}
+					else
+					{
+						_Player1.Remove(npc);
+						// TODO Add points
+						// TODO Spawn replacement
+					}
+				}
+			}
 		}
 	}
 }

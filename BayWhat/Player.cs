@@ -12,7 +12,7 @@ namespace BayWhat
     class Player : Container
     {
         private SimpleInputMap<GameAction> _InputMap;
-        public event Action Act = () => { };
+        public event Action<bool> Act = a => { };
 
         private BlittingAnimation _Idle;
         private BlittingAnimation _Walk;
@@ -29,7 +29,7 @@ namespace BayWhat
 
             _Dimensions = new Vector2f(32, 32);
             _DimensionsCenter = new Vector2f(_Dimensions.X / 2, _Dimensions.Y);
-            CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _Dimensions);
+            CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _DimensionsCenter);
 
             // PlayerGfx
             //Add(new Rectangle(_Core, _Dimensions, Color.Yellow));
@@ -72,7 +72,7 @@ namespace BayWhat
 					_Direction = new Vector2f(_Direction.X, activate ? 1 : (_Direction.Y == 1 ? 0 : _Direction.Y));
 					break;
                 case GameAction.Act:
-                    if (activate) Act();
+                    Act(activate);
                     break;
             }
         }
@@ -85,9 +85,9 @@ namespace BayWhat
             Position += _Direction.MultiplyBy(_Velocity) * deltaT;
             _Idle.Visible = _Direction == default;
             _Walk.Visible = !_Idle.Visible;
-            (CollisionShape as RectangleCollisionShape)!.Position = Position;
-            
-            if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
+
+			(CollisionShape as RectangleCollisionShape)!.Position = Position + new Vector2f(8, -32);
+			if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
         }
 
         public void Destroy()

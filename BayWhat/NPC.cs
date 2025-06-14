@@ -72,8 +72,9 @@ namespace BayWhat
             get => _sprite.Position; 
             set => _sprite.Position = value; 
         }
+		public Vector2f CollisionOffset { get; }
 
-        Vector2f CalcDirection(Vector2f startDir, Vector2f endDir)
+		Vector2f CalcDirection(Vector2f startDir, Vector2f endDir)
         {
             return (endDir - startDir).Normalize();
         }
@@ -170,20 +171,25 @@ namespace BayWhat
             _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
             State = NPCState.Dancing;
 
-            Game.Unpaused += () =>  HandleDirectionChange();
+            Game.Unpaused += () => HandleDirectionChange();
 
             HandleDirectionChange();
+
+            var big = new Vector2f(32, 32); // frame size
+            var smol = new Vector2f(13, 11); // size of area containing pixel in gfx
+            CollisionOffset = (big - smol) / 2;
+            CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, CollisionOffset, smol);
         }
 
         public override void Update(float deltaT)
         {
             base.Update(deltaT);
-
             _deltaT = deltaT;
 
-            //TODO: _sprite muss Sprite werden
-            if (OceanCollision.CollidesWith(_sprite.Position) && State == NPCState.Drunken) State = NPCState.Swiming;
+			(CollisionShape as RectangleCollisionShape)!.Position = Position + CollisionOffset;
 
+			if (OceanCollision.CollidesWith(_sprite.Position) && State == NPCState.Drunken)
+                State = NPCState.Swiming;
         }
 
 

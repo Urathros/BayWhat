@@ -25,9 +25,10 @@ namespace BayWhat
         /// Time the next NPC needs to become drunken
         /// </summary>
         public float DrunkSeconds { get; set; }
+        public Vector2f Offset => _partyArea.Position();
 
 
-        private RectangleCollisionShape _oceanCollision;
+		private RectangleCollisionShape _oceanCollision;
 		private readonly TextureLoader _TextureLoader;
 
 		public NPCManager(Core core, FloatRect partyArea, float drunkSeconds, RectangleCollisionShape oceanCollision, TextureLoader textureLoader) : base(core)
