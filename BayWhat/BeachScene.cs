@@ -19,6 +19,7 @@ namespace BayWhat
 		private RectangleCollisionShape _OceanArea;
 		private NPCManager _Npcs;
 		private PauseMenu _Pause;
+		private GameOverMenu _gameOver;
 		private HUD _hud;
 		private uint _deathCounter;
 
@@ -88,6 +89,9 @@ namespace BayWhat
 			_Pause = new PauseMenu(_Core, Input) { Visible = false };
 			//Game.IsRunning = false; // when pause menu is opened
 			Layer_Overlay.Add(_Pause);
+
+			_gameOver = new GameOverMenu(_Core, Input);
+			Layer_Overlay.Add(_gameOver);
 
 			// Collision Helper
 			/*
