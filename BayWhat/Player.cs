@@ -37,13 +37,13 @@ namespace BayWhat
             var origin = new Vector2f(_DimensionsCenter.X, 0);
             var frametime = 0.2f;
 			Texture char_tex = texLoader.Load("baywhat_mc");
-			_Idle = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 0, 4).ToArray())
+			_Idle = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 0, 3).ToArray())
 			{
 				Position = pos,
 				Origin = origin
 			};
 			Add(_Idle);
-			_Walk = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 4, 8).ToArray())
+			_Walk = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 4, 7).ToArray())
 			{
 				Position = pos,
 				Origin = origin,

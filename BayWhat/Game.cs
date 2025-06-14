@@ -126,7 +126,7 @@ namespace BayWhat
             uint cols = tex.Size.X / frame.X;
             uint rows = tex.Size.Y / frame.Y;
             if (end == 0) end = cols * rows;
-			for (uint i = start; i < end; i++)
+			for (uint i = start; i <= end; i++)
 			{
                 uint y = i / cols;
                 uint x = i - y * cols;

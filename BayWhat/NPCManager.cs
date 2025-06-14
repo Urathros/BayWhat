@@ -28,13 +28,15 @@ namespace BayWhat
 
 
         private RectangleCollisionShape _oceanCollision;
+		private readonly TextureLoader _TextureLoader;
 
-        public NPCManager(Core core, FloatRect partyArea, float drunkSeconds, RectangleCollisionShape oceanCollision) : base(core)
+		public NPCManager(Core core, FloatRect partyArea, float drunkSeconds, RectangleCollisionShape oceanCollision, TextureLoader textureLoader) : base(core)
         {
             _partyArea = partyArea;
             DrunkSeconds = drunkSeconds;
             _oceanCollision = oceanCollision;
-            _Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds -2, DrunkSeconds+2), HandleDrunkenStateRandom);
+			_TextureLoader = textureLoader;
+			_Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds -2, DrunkSeconds+2), HandleDrunkenStateRandom);
         }
 
         private void HandleDrunkenStateRandom()
@@ -53,7 +55,7 @@ namespace BayWhat
 
         public NPCManager AddEntity(Vector2f position)
         {
-            var npc = new NPC(_Core);
+            var npc = new NPC(_Core, _TextureLoader);
             npc.Position = position;
             npc.OceanCollision = _oceanCollision;
             npc.PartyArea = _partyArea;

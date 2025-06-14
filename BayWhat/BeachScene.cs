@@ -58,7 +58,7 @@ namespace BayWhat
 			Game.IsRunning = true;
 			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
 			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
-			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea);
+			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea, TextureLoader);
 			_Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
 

@@ -3,6 +3,7 @@ using BlackCoat.Animation;
 using BlackCoat.Collision;
 using BlackCoat.Collision.Shapes;
 using BlackCoat.Entities;
+using BlackCoat.Entities.Animation;
 using BlackCoat.Entities.Shapes;
 using SFML.Graphics;
 using SFML.System;
@@ -48,7 +49,7 @@ namespace BayWhat
 
 
         //TODO: _sprite muss Sprite werden
-        Rectangle _sprite;
+        NPCAnimations _sprite;
 
         /// <summary>
         /// Walking Direction
@@ -159,13 +160,12 @@ namespace BayWhat
         }
 
 
-        public NPC(Core core, string name = "") : base(core)
+        public NPC(Core core, TextureLoader texLoader) : base(core)
         {
-            Name = $"{nameof(NPC)}_{name}";
-
-            _sprite ??= new(core, new Vector2f(32f, 32f), Color.Blue);
-            _sprite.Origin = _sprite.Size / 2;
+            _sprite ??= new(core, texLoader);
+            //_sprite.Origin = _sprite.Size / 2; // TODO check origin
             Add(_sprite);
+            _sprite.Show(NPCState.Dancing);
             _direction = FORWARD;
             _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
             State = NPCState.Dancing;
@@ -182,8 +182,8 @@ namespace BayWhat
             _deltaT = deltaT;
 
             //TODO: _sprite muss Sprite werden
-            if (OceanCollision.CollidesWith(_sprite) && State == NPCState.Drunken) State = NPCState.Swiming;
-            
+            if (OceanCollision.CollidesWith(_sprite.Position) && State == NPCState.Drunken) State = NPCState.Swiming;
+
         }
 
 
