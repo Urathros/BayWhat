@@ -68,9 +68,9 @@ namespace BayWhat
 			Layer_Game.Add(_ocean);
 
 			//// Pause
-			_pause = new(_Core, Input);
+			_pause = new PauseMenu(_Core, Input);
 			Game.IsRunning = false; // when pause menu is opened
-			Layer_Game.Add(_pause);
+			Layer_Overlay.Add(_pause);
 			return true;
 		}
 
