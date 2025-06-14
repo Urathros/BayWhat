@@ -167,7 +167,11 @@ namespace BayWhat
 
 		public void StartDrowning()
 		{
-			_Core.AnimationManager.Wait(Game.DrowningTime, () => Parent?.Remove(this));
+            _Core.AnimationManager.Wait(Game.DrowningTime, () => 
+            { 
+                Parent?.Remove(this);
+                Dying.Invoke(); 
+            });
 		}
 
 		public NPC(Core core, TextureLoader texLoader) : base(core)
