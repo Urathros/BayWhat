@@ -16,8 +16,9 @@ namespace BayWhat
 		private View _View;
 		private Vector2i _MapSize;
 		private IntRect _ViewBounds;
-        private NPCManager _Npcs;
-        private PauseMenu _Pause;
+		private RectangleCollisionShape _OceanArea;
+		private NPCManager _Npcs;
+		private PauseMenu _Pause;
 		private HUD _hud;
 		private uint _deathCounter;
 
@@ -65,23 +66,23 @@ namespace BayWhat
 				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};
 			_Player1.Act += OnP1Act;
-			
+
 			Layer_Game.Add(_Player1);
 			HandleDeviceResize(_Core.DeviceSize);
 
-            _hud = new(_Core, Input);
-            Layer_Overlay.Add(_hud);
+			_hud = new(_Core, Input);
+			Layer_Overlay.Add(_hud);
 
-            // NPC
-            Game.IsRunning = true;
+			// NPC
+			Game.IsRunning = true;
 			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
-			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
-			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea, TextureLoader, _hud);
-			_Npcs.Dying += HandleDying;
-			_Npcs.AddEntities(50);
+			_OceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
+			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, _OceanArea, TextureLoader, _hud);
+            _Npcs.Dying += HandleDying;
+            _Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
 
-			
+
 
 			// PauseMenu
 			_Pause = new PauseMenu(_Core, Input) { Visible = false };
@@ -115,6 +116,7 @@ namespace BayWhat
 				Y = _Player1.Position.Y < _ViewBounds.Top ? _ViewBounds.Top :
 					_Player1.Position.Y > _ViewBounds.Height ? _ViewBounds.Height : _Player1.Position.Y
 			};
+			_Player1.Velocity = _Player1.CollisionShape.CollidesWith(_OceanArea) ? 0.5f : 1;
 		}
 
 		protected override void Destroy()
@@ -124,14 +126,17 @@ namespace BayWhat
 		private void OnP1Act(bool activate)
 		{
 			Log.Debug(activate);
-			if(activate)
+			if (activate)
 			{
 				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player1.CollisionShape));
-				if(npc != null)
+				if (npc != null)
 				{
-					npc.Position = default;
-					npc.State = NPCState.Rescue;
-					_Player1.Add(npc);
+					if (npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
+					{
+						npc.Position = default;
+						npc.State = NPCState.Rescue;
+						_Player1.Add(npc);
+					}
 				}
 			}
 			else
@@ -139,21 +144,19 @@ namespace BayWhat
 				var npc = _Player1.GetAll<NPC>().FirstOrDefault();
 				if (npc != null)
 				{
-					if (_Player1.CollisionShape.CollidesWith(_Collisions.First(c => c.Type == CollisionType.Ocean).Shape))
-					{ 
-						if(npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
-						{
-                            npc.Position = default;
-                            npc.State = NPCState.Rescue;
-                            _Player1.Add(npc);
-                        }
-						
+					if (_Player1.CollisionShape.CollidesWith(_OceanArea))
+					{
+						_Npcs.Add(npc);
+						npc.Position = _Player1.Position;
+						npc.State = NPCState.Drowning;
+						npc.StartDrowning();
 					}
 					else
 					{
 						_Player1.Remove(npc);
 						_hud.Score += 100;
 						_Npcs.AddEntity(_Npcs.PosInPartyArea);
+						_hud.IsBlinking = _Npcs.GetAll<NPC>().Any(n => n.State == NPCState.Drowning || n.State == NPCState.Swiming);
 					}
 				}
 			}

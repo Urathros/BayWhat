@@ -157,16 +157,20 @@ namespace BayWhat
                     break;
                 case NPCState.Rescue:
                     break;
-                case NPCState.Drowning:
-                    _Core.AnimationManager.Wait(Game.DrowningTime, () =>  Parent.Remove(this));
-                    break;
-                default:
+				case NPCState.Drowning:
+					StartDrowning();
+					break;
+				default:
                     break;
             }
         }
 
+		public void StartDrowning()
+		{
+			_Core.AnimationManager.Wait(Game.DrowningTime, () => Parent?.Remove(this));
+		}
 
-        public NPC(Core core, TextureLoader texLoader) : base(core)
+		public NPC(Core core, TextureLoader texLoader) : base(core)
         {
             _sprite ??= new(core, texLoader);
             //_sprite.Origin = _sprite.Size / 2; // TODO check origin
