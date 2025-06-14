@@ -16,13 +16,15 @@ namespace BayWhat
 
         private BlittingAnimation _Idle;
         private BlittingAnimation _Walk;
+        private BlittingAnimation _Swim;
 
 		private Vector2f _Dimensions;
         private Vector2f _DimensionsCenter;
         private Vector2f _Direction;
         private Vector2f _Velocity = new(200,200);
+        public float Velocity { get; set; } = 1;
 
-        public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
+		public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
         {
             _InputMap = inputMap;
             _InputMap.MappedOperationInvoked += HandleInput;
@@ -50,6 +52,13 @@ namespace BayWhat
 				Visible = false
 			};
 			Add(_Walk);
+			_Swim = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 8, 11).ToArray())
+			{
+				Position = pos,
+				Origin = origin,
+				Visible = false
+			};
+			Add(_Swim);
 		}
 
 
@@ -59,11 +68,11 @@ namespace BayWhat
 			{
 				case GameAction.Left:
 					_Direction = new Vector2f(activate ? -1 : (_Direction.X == -1 ? 0 : _Direction.X), _Direction.Y);
-					if(activate) _Walk.Scale = _Idle.Scale = new(-1, 1);
+					if(activate) _Walk.Scale = _Idle.Scale = _Swim.Scale = new(-1, 1);
 					break;
 				case GameAction.Right:
 					_Direction = new Vector2f(activate ? 1 : (_Direction.X == 1 ? 0 : _Direction.X), _Direction.Y);
-					if (activate) _Walk.Scale = _Idle.Scale = new(1, 1);
+					if (activate) _Walk.Scale = _Idle.Scale = _Swim.Scale = new(1, 1);
 					break;
 				case GameAction.Up:
 					_Direction = new Vector2f(_Direction.X, activate ? -1 : (_Direction.Y == -1 ? 0 : _Direction.Y));
@@ -82,9 +91,18 @@ namespace BayWhat
             base.Update(deltaT);
 
             // MOVE
-            Position += _Direction.MultiplyBy(_Velocity) * deltaT;
-            _Idle.Visible = _Direction == default;
-            _Walk.Visible = !_Idle.Visible;
+            Position += _Direction.MultiplyBy(_Velocity*Velocity) * deltaT;
+            if (Velocity == 1)
+            {
+                _Idle.Visible = _Direction == default;
+                _Walk.Visible = !_Idle.Visible;
+				_Swim.Visible = false;
+			}
+            else
+            {
+                _Idle.Visible = _Walk.Visible = false;
+                _Swim.Visible = true;
+			}
 
 			(CollisionShape as RectangleCollisionShape)!.Position = Position + new Vector2f(8, -32);
 			if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
