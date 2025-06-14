@@ -18,7 +18,7 @@ namespace BayWhat
         Rectangle _ocean;
         PauseMenu _pause;
 
-        public TestScene(Core core) : base(core, string.Empty)
+        public TestScene(Core core) : base(core, string.Empty, "Assets")
         {
             Name = nameof(TestScene);
         }
@@ -35,16 +35,24 @@ namespace BayWhat
             _ocean = new(_Core, _Core.DeviceSize, Color.Blue);
             _ocean.Position = new(0, _Core.DeviceSize.Y - 1);
 
+
+            Game.IsRunning = true;
+
             _npcs = new NPCManager(_Core, new(new(0f, 0f), _Core.DeviceSize), 10f, _ocean);
             _npcs.AddEntities(50);
 
-            _pause = new(_Core, Input);
-            Game.IsRunning = false; // when pause menu is opened
+            //_pause = new(_Core, Input);
+            //Game.IsRunning = false; // when pause menu is opened
 
             Layer_Game.Add(_npcs);
             Layer_Game.Add(_ocean);
-            Layer_Game.Add(_pause);
-            
+            //Layer_Game.Add(_pause);
+
+            //var font = FontLoader.Load("PixelifySans-Regular");
+            var text = Game.GetPixelText(_Core, "Pugs", 32);
+            text.Position = _Core.DeviceSize / 2;
+            Layer_Game.Add(text);
+
             return true;
         }
 

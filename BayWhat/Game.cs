@@ -9,6 +9,7 @@ using SFML.Audio;
 using BlackCoat;
 using BlackCoat.InputMapping;
 using BlackCoat.AssetHandling;
+using BlackCoat.Entities;
 
 namespace BayWhat
 {
@@ -20,6 +21,7 @@ namespace BayWhat
         private static Core _Core;
         private static Device _Device;
         private static bool _isRunning;
+        private static FontLoader _font = new("Assets");
 
         public static Vector2f FullHD;
 
@@ -130,5 +132,11 @@ namespace BayWhat
 				yield return new IntRect((int)(x * frame.X), (int)(y * frame.Y), (int)frame.X, (int)frame.Y);
 			}
 		}
+
+        public static TextItem GetPixelText(Core core, String text = "", uint characterSize = 16)
+        {
+            var font = _font.Load("PixelifySans-Regular");
+            return new TextItem(_Core, "Pugs", 32, font);
+        }
 	}
 }
