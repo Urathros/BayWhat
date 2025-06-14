@@ -58,16 +58,18 @@ namespace BayWhat
 			Layer_Game.Add(_Player1);
 			HandleDeviceResize(_Core.DeviceSize);
 
+            _hud = new(_Core, Input);
+            Layer_Overlay.Add(_hud);
+
             // NPC
-			Game.IsRunning = true;
+            Game.IsRunning = true;
 			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
 			var oceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
-			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea, TextureLoader);
+			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, oceanArea, TextureLoader, _hud);
 			_Npcs.AddEntities(50);
 			Layer_Game.Add(_Npcs);
 
-			_hud = new(_Core, Input);
-			Layer_Overlay.Add(_hud);
+			
 
 			// PauseMenu
 			_Pause = new PauseMenu(_Core, Input) { Visible = false };
@@ -126,16 +128,20 @@ namespace BayWhat
 				if (npc != null)
 				{
 					if (_Player1.CollisionShape.CollidesWith(_Collisions.First(c => c.Type == CollisionType.Ocean).Shape))
-					{ // TODO check if npc is actually drowning
-						npc.Position = default;
-						npc.State = NPCState.Rescue;
-						_Player1.Add(npc);
+					{ 
+						if(npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
+						{
+                            npc.Position = default;
+                            npc.State = NPCState.Rescue;
+                            _Player1.Add(npc);
+                        }
+						
 					}
 					else
 					{
 						_Player1.Remove(npc);
-						// TODO Add points
-						// TODO Spawn replacement
+						_hud.Score += 100;
+						_Npcs.AddEntity(default);
 					}
 				}
 			}

@@ -43,7 +43,7 @@ namespace BayWhat
             set => _warningLabelPosition = new(value.X - 160, value.Y - 50);
         }
 
-        private bool _isBlinking = false;
+        private bool _isBlinking;
 
         public bool IsBlinking
         {
@@ -53,7 +53,15 @@ namespace BayWhat
                 if(!_isBlinking && value)
                 {
                     _isBlinking = value;
+
+                    _warningLabel.Visible = true;
                     PrintBlinkFadeOut();
+                }
+                else if(_isBlinking && !value)
+                {
+
+                    _isBlinking = value;
+                    _warningLabel.Visible = false;
                 }
                 else _isBlinking = value; 
             }
@@ -65,6 +73,7 @@ namespace BayWhat
         {
             Name = nameof(HUD);
             Input = new UIInput(input, true);
+            _isBlinking = false;
 
             ScoreLabelPosition = core.DeviceSize;
             WarningLabelPosition = core.DeviceSize;
@@ -76,6 +85,7 @@ namespace BayWhat
             _warningLabel.TextColor = Color.Red;
             _warningLabel.Style = Text.Styles.Bold;
             _warningLabel.Position = WarningLabelPosition;
+            _warningLabel.Visible = false;
 
             Score = 0;
 
@@ -85,7 +95,6 @@ namespace BayWhat
                 _warningLabel
             };
 
-            IsBlinking = true;
             _Core.DeviceResized += HandleResize;
         }
 

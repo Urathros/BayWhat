@@ -66,6 +66,8 @@ namespace BayWhat
         #endregion
         public NPCState State { get; set; }
 
+        public HUD Hud { get; set; }
+
 
         public Vector2f Position
         {
@@ -189,7 +191,12 @@ namespace BayWhat
 			(CollisionShape as RectangleCollisionShape)!.Position = Position + CollisionOffset;
 
 			if (OceanCollision.CollidesWith(_sprite.Position) && State == NPCState.Drunken)
+            {
                 State = NPCState.Swiming;
+
+                if (!Hud.IsBlinking) Hud.IsBlinking = true;
+
+            }
         }
 
 
