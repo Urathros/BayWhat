@@ -68,10 +68,10 @@ namespace BayWhat
 			Layer_Game.Add(_ocean);
 
 			//// Pause
-            //_pause = new(_Core, Input);
-            //Game.IsRunning = false; // when pause menu is opened
-            //Layer_Game.Add(_pause);
-            return true;
+			_pause = new(_Core, Input);
+			Game.IsRunning = false; // when pause menu is opened
+			Layer_Game.Add(_pause);
+			return true;
 		}
 
 		private void HandleDeviceResize(Vector2f deviceSize)

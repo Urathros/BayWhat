@@ -101,8 +101,8 @@ namespace BayWhat
 
         private void HandleMenuSceneChange(Button btn)
         {
+            Game.IsRunning = false;
             _Core.SceneManager.ChangeScene(new MenuScene(_Core));
-            Game.IsRunning = true;
         }
 
     }
