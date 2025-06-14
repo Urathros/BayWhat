@@ -1,4 +1,5 @@
 using BlackCoat;
+using SFML.Window;
 
 namespace BayWhat
 {
@@ -10,11 +11,14 @@ namespace BayWhat
         [STAThread]
         static void Main()
         {
-            using var core = new Core(Device.Demo);
+            var vm = new VideoMode(800, 600);
+            var device = Device.Create(vm, "BayWhat?!?", Styles.Default, 0, false, 120);
+            using var core = new Core(device);
             core.Debug = true;
 
             var scene = new TestScene(core);
-            core.SceneManager.ChangeScene(scene);
+            var menu = new MenuScene(core);
+            core.SceneManager.ChangeScene(menu);
             core.Run();
         }
     }
