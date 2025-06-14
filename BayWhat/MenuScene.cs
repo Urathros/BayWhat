@@ -22,6 +22,7 @@ namespace BayWhat
         private readonly FloatRect TEXT_PADDING = new(6, 4, 6, 4);
         private Canvas _uiRoot;
         private Canvas _uiCredits;
+        private Graphic _bgGraphic;
 
         private Vector2f _titleContainerPosition;
         private Vector2f _buttonContainerPosition;
@@ -71,7 +72,7 @@ namespace BayWhat
 
 
 
-        public MenuScene(Core core) : base(core, MENU_SCENE_NAME)
+        public MenuScene(Core core) : base(core, MENU_SCENE_NAME, "Assets")
         {
             Name = nameof(MenuScene);
         }
@@ -116,11 +117,20 @@ namespace BayWhat
             CreditsTextContainerPosition = _Core.DeviceSize;
             CreditsButtonContainerPosition = _Core.DeviceSize;
 
+            var bgTexture = TextureLoader.Load($"BeachNight\\NewLevelSequence.0000.png");
+
+            var texSize = bgTexture.Size;
+
+            _bgGraphic = new Graphic(_Core, bgTexture);
+           
+
             var uiInput = new UIInput(Input, true);
+
             _uiRoot = new(_Core, _Core.DeviceSize)
             {
+                Texture = bgTexture,
                 Input = uiInput,
-                BackgroundColor = Color.Cyan,
+                //BackgroundColor = Color.Cyan,
                 Init = new UIComponent[]
                {
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
@@ -216,7 +226,8 @@ namespace BayWhat
                 }
             };
 
-            Layer_Game.Add(_uiRoot);
+            Layer_Overlay.Add(_uiRoot);
+            Layer_Background.Add(_bgGraphic);
             _Core.DeviceResized += HandleResize;
             
 
