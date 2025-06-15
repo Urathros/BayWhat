@@ -33,6 +33,7 @@ namespace BayWhat
 
         private RectangleCollisionShape _oceanCollision;
         private HUD _hud;
+		private string[] _Texts;
 		private readonly TextureLoader _TextureLoader;
 
         public Action Dying = () => { };
@@ -45,24 +46,32 @@ namespace BayWhat
 			_TextureLoader = textureLoader;
 			_Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds -2, DrunkSeconds+2), HandleDrunkenStateRandom);
             _hud = hud;
+
+            _Texts = File.ReadAllLines("Assets\\PartyTexts.txt");
         }
 
         private void HandleDrunkenStateRandom()
-        {
-            if (Disposed) return;
-            var npc = ((NPC)_Entities[_Core.Random.Next(0, _Entities.Count)]);
-            
-            if(npc.State == NPCState.Drunken)
-            {
-                HandleDrunkenStateRandom();
-                return;
-            }
+		{
+			if (Disposed) return;
+			NPC npc = GetRandomNPC();
 
-            npc.State = NPCState.Drunken;
-            _Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds - 2, DrunkSeconds + 2), HandleDrunkenStateRandom);
-        }
+			if (npc.State == NPCState.Drunken)
+			{
+				HandleDrunkenStateRandom();
+				return;
+			}
 
-        public NPCManager AddEntity(Vector2f position)
+			npc.State = NPCState.Drunken;
+			_Core.AnimationManager.Wait(_Core.Random.NextFloat(DrunkSeconds - 2, DrunkSeconds + 2), HandleDrunkenStateRandom);
+		}
+
+		private NPC GetRandomNPC()
+		{
+            var npcs = _Entities.OfType<NPC>().ToArray();
+			return npcs[_Core.Random.Next(0, npcs.Length)];
+		}
+
+		public NPCManager AddEntity(Vector2f position)
         {
             var npc = new NPC(_Core, _TextureLoader);
             npc.Position = position;
@@ -79,5 +88,35 @@ namespace BayWhat
             for (int i = 0; i < size; i++) AddEntity(PosInPartyArea);
         }
 
-    }
+        public void StartTextSpawn()
+        {
+            if (Disposed) return;
+            SpawnPartyText();
+            _Core.AnimationManager.Wait(_Core.Random.Next(1,2), StartTextSpawn);
+        }
+
+        private void SpawnPartyText()
+        {
+            var text = _Texts[_Core.Random.Next(_Texts.Length)];
+            var item = Game.GetPixelText(_Core, text, 10);
+            item.Color = Color.Blue;
+            Add(item);
+            item.Origin = item.LocalBounds.Size() / 2;
+            item.Position = GetRandomNPC().Position;
+			_Core.AnimationManager.Run(item.Position.Y, item.Position.Y - 200, 4,
+                                       v=>MoveText(v,item), ()=>KillText(item));
+        }
+
+		private void MoveText(float v, TextItem tex)
+		{
+            if (Disposed) return;
+            tex.Position = new Vector2f(tex.Position.X, v);
+		}
+
+		private void KillText(TextItem tex)
+		{
+			if (Disposed) return;
+            Remove(tex);
+		}
+	}
 }
