@@ -50,7 +50,7 @@ namespace BayWhat
             set 
             {
                 _titleContainerPosition.X = value.X / 2;
-                _titleContainerPosition.Y = value.Y / 2 - 300;
+                _titleContainerPosition.Y = value.Y / 2 - 500;
             }
         }
 

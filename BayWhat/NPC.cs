@@ -164,7 +164,7 @@ namespace BayWhat
                 }
                     break;
                 case NPCState.Drunken:
-                    _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleStateBehaviour);
+                    _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(BACKWARD), HandleStateBehaviour);
                     break;
                 case NPCState.Swiming:
                     _speed = _Core.Random.NextFloat(MIN_SWIM_SPEED, MAX_SWIM_SPEED);

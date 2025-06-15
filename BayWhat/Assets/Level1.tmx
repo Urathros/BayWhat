@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="60">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="63">
  <tileset firstgid="1" name="baywhat map tiles" tilewidth="32" tileheight="32" tilecount="88" columns="8">
   <image source="baywhat_tileset.png" width="256" height="352"/>
  </tileset>
@@ -76,8 +76,8 @@
   <object id="5" x="-20" y="-26" width="1630" height="98"/>
   <object id="6" x="1578" y="-24" width="38" height="1008"/>
   <object id="7" x="-34" y="938.03" width="1648" height="51.9699"/>
-  <object id="9" type="Ocean" x="34.3459" y="66.6566" width="1542.91" height="479.419"/>
-  <object id="10" type="PartyArea" x="32.6015" y="568.1" width="1544.84" height="369.328"/>
+  <object id="9" type="Ocean" x="34.3459" y="66.6566" width="1542.91" height="450.086"/>
+  <object id="10" type="PartyArea" x="32.6015" y="568.1" width="1544.84" height="325.995"/>
   <object id="13" x="1193.04" y="579.256" width="44" height="56.4711"/>
   <object id="14" x="1099.2" y="675.726" width="44" height="54.6378"/>
   <object id="15" x="1193.84" y="834.429" width="44" height="57.1378"/>
@@ -118,5 +118,6 @@
   <object id="57" x="253.493" y="892.764" width="13.3333" height="32.6378"/>
   <object id="58" x="1345.5" y="739.848" width="57" height="25.6378"/>
   <object id="59" x="1255.64" y="871.34" width="16.7273" height="17.3196"/>
+  <object id="62" type="P1Start" x="907.333" y="716.667" width="10" height="10"/>
  </objectgroup>
 </map>
