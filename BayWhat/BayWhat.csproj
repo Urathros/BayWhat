@@ -9,6 +9,125 @@
 
   <ItemGroup>
     <None Remove="Assets\baywhat_mc.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0001.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0002.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0003.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0004.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0005.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0006.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0007.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0008.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0009.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0010.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0011.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0012.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0013.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0014.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0015.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0016.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0017.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0018.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0019.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0020.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0021.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0022.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0023.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0024.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0025.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0026.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0027.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0028.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0029.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0030.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0031.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0032.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0033.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0034.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0035.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0036.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0037.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0038.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0039.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0040.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0041.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0042.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0043.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0044.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0045.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0046.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0047.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0048.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0049.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0050.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0051.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0052.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0053.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0054.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0055.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0056.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0057.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0058.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0059.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0060.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0061.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0062.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0063.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0064.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0065.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0066.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0067.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0068.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0069.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0070.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0071.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0072.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0073.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0074.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0075.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0076.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0077.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0078.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0079.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0080.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0081.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0082.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0083.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0084.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0085.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0086.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0087.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0088.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0089.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0090.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0091.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0092.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0093.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0094.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0095.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0096.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0097.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0098.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0099.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0100.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0101.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0102.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0103.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0104.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0105.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0106.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0107.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0108.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0109.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0110.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0111.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0112.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0113.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0114.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0115.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0116.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0117.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0118.png" />
+    <None Remove="Assets\BeachNight\NewLevelSequence.0119.png" />
     <None Remove="Assets\Mischung_Aus_Markus_Zeug_Viel_Spass_Mit_Dem_Langen_Dateinamen.ogg" />
     <None Remove="Assets\NPC_female_base.png" />
     <None Remove="Assets\NPC_female_overlay.png" />
@@ -24,6 +143,363 @@
 
   <ItemGroup>
     <Content Include="Assets\baywhat_mc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0001.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0002.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0003.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0004.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0005.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0006.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0007.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0008.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0009.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0010.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0011.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0012.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0013.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0014.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0015.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0016.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0017.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0018.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0019.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0020.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0021.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0022.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0023.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0024.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0025.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0026.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0027.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0028.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0029.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0030.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0031.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0032.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0033.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0034.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0035.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0036.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0037.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0038.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0039.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0040.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0041.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0042.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0043.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0044.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0045.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0046.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0047.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0048.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0049.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0050.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0051.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0052.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0053.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0054.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0055.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0056.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0057.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0058.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0059.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0060.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0061.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0062.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0063.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0064.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0065.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0066.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0067.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0068.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0069.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0070.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0071.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0072.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0073.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0074.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0075.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0076.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0077.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0078.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0079.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0080.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0081.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0082.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0083.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0084.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0085.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0086.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0087.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0088.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0089.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0090.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0091.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0092.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0093.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0094.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0095.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0096.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0097.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0098.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0099.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0101.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0102.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0103.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0104.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0105.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0106.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0107.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0108.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0109.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0110.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0111.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0112.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0113.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0114.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0115.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0116.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0117.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0118.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BeachNight\NewLevelSequence.0119.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Mischung_Aus_Markus_Zeug_Viel_Spass_Mit_Dem_Langen_Dateinamen.ogg">
