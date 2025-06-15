@@ -49,6 +49,7 @@ namespace BayWhat
 
         private void HandleDrunkenStateRandom()
         {
+            if (Disposed) return;
             var npc = ((NPC)_Entities[_Core.Random.Next(0, _Entities.Count)]);
             
             if(npc.State == NPCState.Drunken)

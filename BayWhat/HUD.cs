@@ -133,6 +133,7 @@ namespace BayWhat
 
         private void HandleWarningBlink(float val)
         {
+            if (Disposed) return;
             _warningLabel.Alpha = val;
         }
     }

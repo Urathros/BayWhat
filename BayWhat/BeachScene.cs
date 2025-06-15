@@ -147,6 +147,7 @@ namespace BayWhat
 
 		protected override void Destroy()
 		{
+			_Player.Destroy();
 		}
 
 		private void OnP1Act(bool activate)
