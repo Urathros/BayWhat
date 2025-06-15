@@ -71,29 +71,26 @@ namespace BayWhat
                             Position = ButtonContainerPosition,
                             Init = new UIComponent[]
                             {
-                                new Label(_Core, "Pause"),
+                                Game.GetPixelLabel(_Core, "Pause", 40),
                                 new Label(_Core, ""),
-                                new Button(_Core, null, new Label(_Core, "Continue") {Padding = TEXT_PADDING})
+                                new Button(_Core, null, Game.GetPixelLabel(_Core, "Continue"))
                                 {
                                     Name = "Button Continue",
-                                    BackgroundColor = Color.Blue,
                                     InitReleased = HandleContinue,
                                     InitFocusGained = HandleFocusGained,
                                     InitFocusLost = HandleFocusLost
                                 },
-                                new Button(_Core, null, new Label(_Core, "To Menu") {Padding = TEXT_PADDING})
+                                new Button(_Core, null, Game.GetPixelLabel(_Core, "To Menu"))
                                 {
                                     Name = "Button Menu",
-                                    BackgroundColor = Color.Blue,
                                     InitReleased = HandleMenuSceneChange,
                                     InitFocusGained = HandleFocusGained,
                                     InitFocusLost = HandleFocusLost
                                 },
                                 
-                                new Button(_Core, null, new Label(_Core, "Exit") {Padding = TEXT_PADDING})
+                                new Button(_Core, null, Game.GetPixelLabel(_Core, "Exit"))
                                 {
                                     Name = "Button Exit",
-                                    BackgroundColor = Color.Blue,
                                     InitReleased = b => _Core.Exit(),
                                     InitFocusGained = HandleFocusGained,
                                     InitFocusLost = HandleFocusLost
@@ -110,12 +107,12 @@ namespace BayWhat
 
         private void HandleFocusGained(UIComponent comp)
         {
-            comp.BackgroundColor = Color.Red;
+            comp.BackgroundColor = new Color(0,200,0,15);
         }
 
         private void HandleFocusLost(UIComponent comp)
         {
-            comp.BackgroundColor = Color.Blue;
+            comp.BackgroundColor = Color.Transparent;
         }
 
         private void HandleContinue(Button btn)
