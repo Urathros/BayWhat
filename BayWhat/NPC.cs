@@ -142,8 +142,8 @@ namespace BayWhat
             else _sprite.Translate(dir * _speed * _deltaT);
 
 
-            // _sprite.Scale = new(dir.X > 0 ? 1 : -1 , 1); // TODO: Alex einbinden, wenn Origin stimmt
-
+            //_sprite.Scale = new(dir.X > 0 ? 1 : -1 , 1); // TODO: Alex einbinden, wenn Origin stimmt
+            if(dir.X != 0) _sprite.Flip(dir.X > 0);
         }
 
         void HandleStateBehaviour(Animation? anim = null)

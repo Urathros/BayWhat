@@ -138,5 +138,13 @@ namespace BayWhat
 			byte b = (byte)Math.Round((bPrime + m) * 255);
 			return new Color(r,g,b);
 		}
+		public void Flip(bool left)
+		{
+			foreach (var item in GetAll<BlittingAnimation>())
+			{
+				item.Position = item.Origin = new(16, 0);
+				item.Scale = new(left ? -1 : 1, 1);
+			}
+		}
 	}
 }
