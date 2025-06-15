@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace BayWhat
 {
@@ -38,6 +39,7 @@ namespace BayWhat
         const float MIN_SWIM_SPEED = MIN_DANCE_SPEED - 10;
         const float MAX_SWIM_SPEED = MAX_DANCE_SPEED - 10;
 
+        readonly Vector2f ZERO = new(0f, 0f);
         readonly Vector2f FORWARD = new(0f, 1f);
         readonly Vector2f BACKWARD = new(0f, -1f);
         readonly Vector2f RIGHT = new(1f, 0f);
@@ -108,6 +110,25 @@ namespace BayWhat
             }
         }
 
+        void ChangePartyMode()
+        {
+            if (!(State == NPCState.Idle || State == NPCState.Dancing || State == NPCState.Partying)) return;
+
+            var rand = _Core.Random.Next(1, 4);
+
+            switch (rand)
+            {
+                case 1: State = NPCState.Idle; break;
+                case 2: State = NPCState.Dancing; break;
+                case 3: State = NPCState.Partying; break;
+                default:
+                    break;
+            }
+
+            _Core.AnimationManager.Wait(2, ChangePartyMode);
+
+        }
+
         void HandleMoving(Vector2f dir)
         {
             if (!Game.IsRunning) return;
@@ -116,8 +137,12 @@ namespace BayWhat
 
             var potientialX = dir.X + Position.X;
             var potentialY = dir.Y + Position.Y;
-            if ((potientialX < PartyArea.Left || potientialX > PartyArea.Left + PartyArea.Width || potentialY < PartyArea.Top || potentialY > PartyArea.Top + PartyArea.Height)&& State == NPCState.Dancing) { }
+            if (    ( potientialX < PartyArea.Left || potientialX > PartyArea.Left + PartyArea.Width || potentialY < PartyArea.Top || potentialY > PartyArea.Top + PartyArea.Height)
+                 && (State == NPCState.Idle || State == NPCState.Dancing || State == NPCState.Partying)) { }
             else _sprite.Translate(dir * _speed * _deltaT);
+
+
+            // _sprite.Scale = new(dir.X > 0 ? 1 : -1 , 1); // TODO: Alex einbinden, wenn Origin stimmt
 
         }
 
@@ -126,13 +151,15 @@ namespace BayWhat
             if (!Game.IsRunning) return;
             switch (State)
             {
+                case NPCState.Idle://nobreak
+                case NPCState.Partying: _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(ZERO), HandleStateBehaviour); break; 
                 case NPCState.Dancing:
-                    {
-                        if (_direction == FORWARD) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(LEFT), HandleStateBehaviour);
-                        else if (_direction == LEFT) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(BACKWARD), HandleStateBehaviour);
-                        else if (_direction == BACKWARD) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(RIGHT), HandleStateBehaviour);
-                        else if (_direction == RIGHT) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleStateBehaviour);
-                    }
+                {
+                    if (_direction == FORWARD) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(LEFT), HandleStateBehaviour);
+                    else if (_direction == LEFT) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(BACKWARD), HandleStateBehaviour);
+                    else if (_direction == BACKWARD) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(RIGHT), HandleStateBehaviour);
+                    else if (_direction == RIGHT) _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleStateBehaviour);
+                }
                     break;
                 case NPCState.Drunken:
                     _Core.AnimationManager.RunAdvanced(START_VAL, END_VAL, DURATION, v => HandleMoving(FORWARD), HandleStateBehaviour);
@@ -174,6 +201,8 @@ namespace BayWhat
             _speed = _Core.Random.NextFloat(MIN_DANCE_SPEED, MAX_DANCE_SPEED);
             State = NPCState.Dancing;
 
+            ChangePartyMode();
+
             Game.Unpaused += () => HandleStateBehaviour();
 
             HandleStateBehaviour();
@@ -182,6 +211,7 @@ namespace BayWhat
             var smol = new Vector2f(13, 11); // size of area containing pixel in gfx
             CollisionOffset = (big - smol) / 2;
             CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, CollisionOffset, smol);
+
         }
 
         public override void Update(float deltaT)
@@ -198,6 +228,7 @@ namespace BayWhat
                 if (!Hud.IsBlinking) Hud.IsBlinking = true;
 
             }
+
         }
 
 
