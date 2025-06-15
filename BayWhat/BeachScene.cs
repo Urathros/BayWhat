@@ -89,6 +89,7 @@ namespace BayWhat
 			Game.IsRunning = true;
 			var partyArea = _Collisions.First(c => c.Type == CollisionType.PartyArea).Shape;
 			_OceanArea = _Collisions.First(c => c.Type == CollisionType.Ocean).Shape;
+			_Player.OceanArea = _OceanArea;
 			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, _OceanArea, TextureLoader, _hud);
             _Npcs.Dying += HandleDying;
             _Npcs.AddEntities(50);
@@ -153,12 +154,13 @@ namespace BayWhat
 
 		private void OnP1Act(bool activate)
 		{
-			if (activate)
+			if (activate) // down
 			{
 				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player.CollisionShape));
 				if (npc != null)
-				{
-					if (npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
+                {
+                    _Player.GrabbedNPC = npc;
+                    if (npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
 					{
 						npc.Position = default;
 						npc.State = NPCState.Rescue;
@@ -166,21 +168,21 @@ namespace BayWhat
 					}
 				}
 			}
-			else
+			else // release
 			{
-				var npc = _Player.GetAll<NPC>().FirstOrDefault();
-				if (npc != null)
-				{
-					if (_Player.CollisionShape.CollidesWith(_OceanArea))
+                _Player.GrabbedNPC = _Player.GetAll<NPC>().FirstOrDefault();
+                if (_Player.GrabbedNPC != null)
+                {
+                    if (_Player.CollisionShape.CollidesWith(_OceanArea))
 					{
-						_Npcs.Add(npc);
-						npc.Position = _Player.Position;
-						npc.State = NPCState.Drowning;
-						npc.StartDrowning();
+						_Npcs.Add(_Player.GrabbedNPC);
+						_Player.GrabbedNPC.Position = _Player.Position;
+						_Player.GrabbedNPC.State = NPCState.Drowning;
+                        _Player.GrabbedNPC.StartDrowning();
 					}
 					else
 					{
-						_Player.Remove(npc);
+						_Player.Remove(_Player.GrabbedNPC);
 						_hud.Score += 100;
 						_Npcs.AddEntity(_Npcs.PosInPartyArea);
 						_hud.IsBlinking = _Npcs.GetAll<NPC>().Any(n => n.State == NPCState.Drowning || n.State == NPCState.Swiming);
