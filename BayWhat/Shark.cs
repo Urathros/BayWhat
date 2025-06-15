@@ -46,20 +46,25 @@ namespace BayWhat
 		public void Start()
 		{
 			if (Disposed) return;
-			Log.Debug("start");
-			var target = _Core.Random.NextVector(_Ocean.Position, _Ocean.Position+_Ocean.Size);
+			var target = _Core.Random.NextVector(_Ocean.Position, _Ocean.Position + _Ocean.Size);
 			target.X = (float)Math.Round(target.X);
 			target.Y = (float)Math.Round(target.Y);
 
 			_Swim.Scale = new Vector2f(target.X < Position.X ? -1 : 1, 1);
-			var dur = _Core.Random.NextFloat(2, 5);
-			_Core.AnimationManager.Run(Position.X, target.X, dur, v => Position = new(v, Position.Y), Done, InterpolationType.InCubic);
-			_Core.AnimationManager.Run(Position.Y, target.Y, dur, v => Position = new(Position.X, v), null, InterpolationType.OutCubic);
+			var dur = _Core.Random.NextFloat(4, 8);
+			_Core.AnimationManager.Run(Position.X, target.X, dur, v => AssignPosition(v,true), Done, InterpolationType.InOutCubic);
+			_Core.AnimationManager.Run(Position.Y, target.Y, dur, v => AssignPosition(v,false), null, InterpolationType.InOutCubic);
+		}
+
+		private void AssignPosition(float v, bool x)
+		{
+			if (Disposed) return;
+			Position = new Vector2f(x ? v : Position.X, x ? Position.Y : v);
 		}
 
 		private void Done()
 		{
-			Log.Debug("done");
+			if (Disposed) return;
 			var dur = _Core.Random.NextFloat(2, 5);
 			_Core.AnimationManager.Wait(dur, Start);
 		}

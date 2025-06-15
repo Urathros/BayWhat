@@ -133,7 +133,7 @@ namespace BayWhat
 
         void HandleMoving(Vector2f dir)
         {
-            if (!Game.IsRunning) return;
+            if (!Game.IsRunning || Disposed) return;
 
             DecideDirection();
 
@@ -150,7 +150,7 @@ namespace BayWhat
 
         void HandleStateBehaviour(Animation? anim = null)
         {
-            if (!Game.IsRunning) return;
+            if (Disposed) return;
             switch (State)
             {
                 case NPCState.Idle://nobreak
@@ -204,8 +204,6 @@ namespace BayWhat
             State = NPCState.Dancing;
 
             ChangePartyMode();
-
-            Game.Unpaused += () => HandleStateBehaviour();
 
             HandleStateBehaviour();
 

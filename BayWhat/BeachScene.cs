@@ -48,7 +48,6 @@ namespace BayWhat
 			_View = new View();
 			Layer_Background.View = _View;
 			Layer_Game.View = _View;
-			_Core.DeviceResized += HandleDeviceResize;
 
 			// Tile Map
 			var tex = TextureLoader.Load("baywhat_tileset");
@@ -79,8 +78,9 @@ namespace BayWhat
 			_Player.Act += OnP1Act;
 
 			Layer_Game.Add(_Player);
-			_DevSize = _Core.DeviceSize;
+			_DevSize = new Vector2f(800,600);
 			HandleDeviceResize(_Core.DeviceSize);
+			_Core.DeviceResized += HandleDeviceResize;
 
 			_hud = new(_Core, Input);
 			Layer_Overlay.Add(_hud);
@@ -148,6 +148,7 @@ namespace BayWhat
 
 		protected override void Destroy()
 		{
+			_Player.Destroy();
 		}
 
 		private void OnP1Act(bool activate)
