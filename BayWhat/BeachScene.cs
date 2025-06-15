@@ -72,7 +72,7 @@ namespace BayWhat
 			{
 				if (b && a == GameAction.Pause) _Pause.Visible = true;
 			};
-			_Player = new Player(_Core, inputMap, TextureLoader)
+			_Player = new Player(_Core, inputMap, TextureLoader, _Collisions.Where(c => c.Type == CollisionType.Normal).Select(c=>c.Shape).ToArray())
 			{
 				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};
@@ -110,14 +110,14 @@ namespace BayWhat
 			_Shark.Start();
 			Layer_Game.Add(_Shark);
 
+#if DEBUG
 			// Collision Helper
-			/*
-			Layer_Game.Add(new ColHelp(_Core, _Player1.CollisionShape));
-			foreach (var item in _Npcs.GetAll<NPC>())
+			Layer_Game.Add(new ColHelp(_Core, _Player.CollisionShape));
+			foreach (var item in _Collisions)
 			{
-				Layer_Game.Add(new ColHelp(_Core, item.CollisionShape));
+				Layer_Game.Add(new ColHelp(_Core, item.Shape));
 			}
-			*/
+#endif
 			return true;
 		}
 

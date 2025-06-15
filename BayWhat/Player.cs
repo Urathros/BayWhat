@@ -12,7 +12,9 @@ namespace BayWhat
     class Player : Container
     {
         private SimpleInputMap<GameAction> _InputMap;
-        public event Action<bool> Act = a => { };
+		private readonly RectangleCollisionShape[] _Blocker;
+
+		public event Action<bool> Act = a => { };
 
         private BlittingAnimation _Idle;
         private BlittingAnimation _Walk;
@@ -22,12 +24,15 @@ namespace BayWhat
         private Vector2f _DimensionsCenter;
         private Vector2f _Direction;
         private Vector2f _Velocity = new(200,200);
-        public float Velocity { get; set; } = 1;
+		private Vector2f _CollisionOffset = new(8, -32);
 
-		public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader) : base(core)
+		public float Velocity { get; set; } = 1;
+
+		public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader, RectangleCollisionShape[] blocker) : base(core)
         {
             _InputMap = inputMap;
-            _InputMap.MappedOperationInvoked += HandleInput;
+			_Blocker = blocker;
+			_InputMap.MappedOperationInvoked += HandleInput;
 
             _Dimensions = new Vector2f(32, 32);
             _DimensionsCenter = new Vector2f(_Dimensions.X / 2, _Dimensions.Y);
@@ -90,8 +95,7 @@ namespace BayWhat
         {
             base.Update(deltaT);
 
-            // MOVE
-            Position += _Direction.MultiplyBy(_Velocity*Velocity) * deltaT;
+			// GFX
             if (Velocity == 1)
             {
                 _Idle.Visible = _Direction == default;
@@ -104,7 +108,15 @@ namespace BayWhat
                 _Swim.Visible = true;
 			}
 
-			(CollisionShape as RectangleCollisionShape)!.Position = Position + new Vector2f(8, -32);
+            // MOVE
+            Position += _Direction.MultiplyBy(_Velocity*Velocity) * deltaT;
+			(CollisionShape as RectangleCollisionShape)!.Position = Position + _CollisionOffset;
+			while( _Blocker.Any(b => b.CollidesWith(CollisionShape)))
+			{
+				Position -= _Direction;
+				(CollisionShape as RectangleCollisionShape)!.Position = Position + _CollisionOffset;
+			}
+
 			if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
         }
 
