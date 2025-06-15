@@ -63,12 +63,13 @@ namespace BayWhat
 			Name = nameof(GameOverMenu);
 
 			Input = new UIInput(input, true);
+			
 
 			ButtonContainerPosition = core.DeviceSize;
-			var nameText = new TextBox(_Core);
+			var nameText = new TextBox(_Core, new(200,20), 32);
 			nameText.TextChanged += HandleTextUpdate;
 
-			_scoreLabel = new(core, "Score:");
+			_scoreLabel = Game.GetPixelLabel(core, "Score:");
 
 			_defaultFrame = textureLoader.Load($"BeachMorning\\NewLevelSequence.0000");
 
@@ -89,16 +90,18 @@ namespace BayWhat
 
 							Name = CONTAINER_BUTTONS_NAME,
 							Position = ButtonContainerPosition,
+							BackgroundColor = Color.Black,
+							BackgroundAlpha = 0.5f,
 							Init = new UIComponent[]
 							{
-								new Label(core, "They died..."),
+								Game.GetPixelLabel(core, "They died...", 40),
 								new Label(core, ""),
 								new OffsetContainer(_Core, Orientation.Horizontal, 10)
 								{
 									Init = new UIComponent[]
 									{
 										nameText,
-										new Button(core, null, new Label(core, "Save Score") {Padding = TEXT_PADDING})
+										new Button(core, null, Game.GetPixelLabel(core, "Save Score"))
 										{
 											Name = "Button Save",
 											BackgroundColor = Color.Blue,
@@ -110,7 +113,7 @@ namespace BayWhat
 									}
 								},
 								_scoreLabel,
-								new Button(core, null, new Label(core, "To Menu") {Padding = TEXT_PADDING})
+								new Button(core, null, Game.GetPixelLabel(core, "To Menu"))
 								{
 									Name = "Button Menu",
 									BackgroundColor = Color.Blue,
@@ -119,7 +122,7 @@ namespace BayWhat
 									InitFocusLost = HandleFocusLost
 								},
 
-								new Button(core, null, new Label(core, "Exit") {Padding = TEXT_PADDING})
+								new Button(core, null, Game.GetPixelLabel(core, "Exit"))
 								{
 									Name = "Button Exit",
 									BackgroundColor = Color.Blue,
