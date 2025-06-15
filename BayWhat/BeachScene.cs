@@ -5,14 +5,14 @@ using BlackCoat.InputMapping;
 using SFML.Graphics;
 using SFML.System;
 using System.ComponentModel;
+using System.Drawing;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace BayWhat
 {
 	internal class BeachScene : Scene
 	{
-		private Player _Player1 = default!; // Beachbunny
-		private Player _Player2 = default!; // Shark
+		private Player _Player = default!;
 		private CollisionObject[] _Collisions = [];
 		private View _View;
 		private Vector2i _MapSize;
@@ -24,6 +24,7 @@ namespace BayWhat
 		private HUD _hud;
 		private uint _deathCounter;
 		private Vector2f _DevSize;
+		private Shark _Shark;
 
 		public BeachScene(Core core) : base(core, nameof(BeachScene), "Assets")
 		{
@@ -71,13 +72,13 @@ namespace BayWhat
 			{
 				if (b && a == GameAction.Pause) _Pause.Visible = true;
 			};
-			_Player1 = new Player(_Core, inputMap, TextureLoader)
+			_Player = new Player(_Core, inputMap, TextureLoader)
 			{
 				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};
-			_Player1.Act += OnP1Act;
+			_Player.Act += OnP1Act;
 
-			Layer_Game.Add(_Player1);
+			Layer_Game.Add(_Player);
 			_DevSize = _Core.DeviceSize;
 			HandleDeviceResize(_Core.DeviceSize);
 
@@ -103,6 +104,11 @@ namespace BayWhat
 			_gameOver = new GameOverMenu(_Core, Input) { Visible = false };
             _gameOver.Score = _hud.Score;
 			Layer_Overlay.Add(_gameOver);
+
+			_Shark = new Shark(_Core, TextureLoader, _OceanArea);
+			_Shark.Position = _OceanArea.Position + _OceanArea.Size / 2;
+			_Shark.Start();
+			Layer_Game.Add(_Shark);
 
 			// Collision Helper
 			/*
@@ -130,12 +136,13 @@ namespace BayWhat
 		{
 			_View.Center = new()
 			{
-				X = _Player1.Position.X < _ViewBounds.Left ? _ViewBounds.Left :
-					_Player1.Position.X > _ViewBounds.Width ? _ViewBounds.Width : _Player1.Position.X,
-				Y = _Player1.Position.Y < _ViewBounds.Top ? _ViewBounds.Top :
-					_Player1.Position.Y > _ViewBounds.Height ? _ViewBounds.Height : _Player1.Position.Y
+				X = _Player.Position.X < _ViewBounds.Left ? _ViewBounds.Left :
+					_Player.Position.X > _ViewBounds.Width ? _ViewBounds.Width : _Player.Position.X,
+				Y = _Player.Position.Y < _ViewBounds.Top ? _ViewBounds.Top :
+					_Player.Position.Y > _ViewBounds.Height ? _ViewBounds.Height : _Player.Position.Y
 			};
-			_Player1.Velocity = _Player1.CollisionShape.CollidesWith(_OceanArea) ? 0.5f : 1;
+			//_View.Center = (_Player.Position - _Shark.Position) / -2 + _Player.Position;
+			_Player.Velocity = _Player.CollisionShape.CollidesWith(_OceanArea) ? 0.5f : 1;
 		}
 
 		protected override void Destroy()
@@ -146,32 +153,32 @@ namespace BayWhat
 		{
 			if (activate)
 			{
-				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player1.CollisionShape));
+				var npc = _Npcs.GetAll<NPC>().FirstOrDefault(npc => npc.CollisionShape.CollidesWith(_Player.CollisionShape));
 				if (npc != null)
 				{
 					if (npc.State == NPCState.Swiming || npc.State == NPCState.Drowning)
 					{
 						npc.Position = default;
 						npc.State = NPCState.Rescue;
-						_Player1.Add(npc);
+						_Player.Add(npc);
 					}
 				}
 			}
 			else
 			{
-				var npc = _Player1.GetAll<NPC>().FirstOrDefault();
+				var npc = _Player.GetAll<NPC>().FirstOrDefault();
 				if (npc != null)
 				{
-					if (_Player1.CollisionShape.CollidesWith(_OceanArea))
+					if (_Player.CollisionShape.CollidesWith(_OceanArea))
 					{
 						_Npcs.Add(npc);
-						npc.Position = _Player1.Position;
+						npc.Position = _Player.Position;
 						npc.State = NPCState.Drowning;
 						npc.StartDrowning();
 					}
 					else
 					{
-						_Player1.Remove(npc);
+						_Player.Remove(npc);
 						_hud.Score += 100;
 						_Npcs.AddEntity(_Npcs.PosInPartyArea);
 						_hud.IsBlinking = _Npcs.GetAll<NPC>().Any(n => n.State == NPCState.Drowning || n.State == NPCState.Swiming);
