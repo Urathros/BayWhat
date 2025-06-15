@@ -66,7 +66,12 @@ namespace BayWhat
 			// Collision Layer
 			_Collisions = mapData.Collisions;
 			// Players
-			_Player1 = new Player(_Core, Game.CreateInput(0), TextureLoader)
+			var inputMap = Game.CreateInput(0);
+			inputMap.MappedOperationInvoked += (a,b) =>
+			{
+				if (b && a == GameAction.Pause) _Pause.Visible = true;
+			};
+			_Player1 = new Player(_Core, inputMap, TextureLoader)
 			{
 				Position = _Collisions.Where(c => c.Type == CollisionType.P1Start).First().Shape.Position,
 			};

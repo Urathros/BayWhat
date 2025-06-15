@@ -75,7 +75,9 @@ namespace BayWhat
                 map.AddKeyboardMapping(Keyboard.Key.S, GameAction.Down);
 				map.AddKeyboardMapping(Keyboard.Key.D, GameAction.Right);
                 map.AddKeyboardMapping(Keyboard.Key.F, GameAction.Act);
-            }
+                map.AddKeyboardMapping(Keyboard.Key.Escape, GameAction.Pause);
+                map.AddKeyboardMapping(Keyboard.Key.Space, GameAction.Pause);
+			}
             else
             {
                 map.AddKeyboardMapping(Keyboard.Key.Up, GameAction.Up);
@@ -87,6 +89,7 @@ namespace BayWhat
             map.AddJoystickButtonMapping(0, GameAction.Act);
             map.AddJoystickButtonMapping(1, GameAction.Act);
             map.AddJoystickButtonMapping(2, GameAction.Act);
+            map.AddJoystickButtonMapping(3, GameAction.Pause);
 			map.AddJoystickMovementMapping(Joystick.Axis.PovX, 10f, GameAction.Right);
 			map.AddJoystickMovementMapping(Joystick.Axis.PovX, -10f, GameAction.Left);
 			map.AddJoystickMovementMapping(Joystick.Axis.PovY, 10f, GameAction.Up);

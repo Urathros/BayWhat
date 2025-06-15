@@ -6,6 +6,7 @@
         Down,
         Left,
         Right,
-        Act
+        Act,
+        Pause
     }
 }
