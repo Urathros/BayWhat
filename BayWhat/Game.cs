@@ -152,10 +152,10 @@ namespace BayWhat
             return new TextItem(_Core, text, characterSize, font);
         }
 
-        public static Label GetPixelLabel(Core core, String text = "", uint characterSize = 16)
+        public static Label GetPixelLabel(Core core, String text = "", uint characterSize = 32)
         {
             var font = _font.Load("PixelifySans-Regular");
-            return new Label(_Core, text, 32, font);
+            return new Label(_Core, text, characterSize, font);
         }
     }
 }
