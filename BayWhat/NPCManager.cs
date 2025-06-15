@@ -92,7 +92,7 @@ namespace BayWhat
         {
             if (Disposed) return;
             SpawnPartyText();
-            _Core.AnimationManager.Wait(_Core.Random.Next(2,6), StartTextSpawn);
+            _Core.AnimationManager.Wait(_Core.Random.Next(1,2), StartTextSpawn);
         }
 
         private void SpawnPartyText()
