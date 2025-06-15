@@ -144,7 +144,6 @@ namespace BayWhat
             }
         }
 
-        //TODO: Alex bitte noch mal drüber schauen, dass das sauber ist!
         void ReadScoreText()
         {
             string root = "Data";
@@ -157,10 +156,9 @@ namespace BayWhat
                 var data = JsonSerializer.Deserialize<ScoreData>(json);
                 _scoreText = $"{data!.PlayerName} Score: {data.Score}";
             }
-            catch (Exception ex)
+            catch (IOException ioEx)
             {
-
-                throw;
+                Log.Error(ioEx);
             }
         }
 
