@@ -26,9 +26,17 @@ namespace BayWhat
         private Vector2f _Velocity = new(200,200);
 		private Vector2f _CollisionOffset = new(8, -32);
 
-		public float Velocity { get; set; } = 1;
 
-		public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader, RectangleCollisionShape[] blocker) : base(core)
+		public RectangleCollisionShape OceanArea { get; set; }
+
+
+        public float Velocity { get; set; } = 1;
+        public bool GrabsNPC { get; set; }
+
+
+		public NPC? GrabbedNPC { get; set; } = null;
+
+        public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader texLoader, RectangleCollisionShape[] blocker) : base(core)
         {
             _InputMap = inputMap;
 			_Blocker = blocker;
@@ -37,6 +45,8 @@ namespace BayWhat
             _Dimensions = new Vector2f(32, 32);
             _DimensionsCenter = new Vector2f(_Dimensions.X / 2, _Dimensions.Y);
             CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _DimensionsCenter);
+
+			GrabsNPC = false;
 
             // PlayerGfx
             //Add(new Rectangle(_Core, _Dimensions, Color.Yellow));
@@ -118,6 +128,8 @@ namespace BayWhat
 			}
 
 			if (Position.X < -1000 || Position.X > 2500 || Position.Y < -100 || Position.Y > 5000) Position = _Core.DeviceSize / 2;
+
+			if (!CollisionShape.CollidesWith(OceanArea) && GrabbedNPC != null && GrabbedNPC.State == NPCState.Rescue) GrabbedNPC.ShowAnim(NPCState.Idle);
         }
 
         public void Destroy()

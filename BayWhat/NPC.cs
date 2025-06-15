@@ -96,6 +96,8 @@ namespace BayWhat
             return (endDir - startDir).Normalize();
         }
 
+        public void ShowAnim(NPCState state) => _sprite.Show(state);
+
         void DecideDirection()
         {
             var rand = _Core.Random.Next(1, 5);
