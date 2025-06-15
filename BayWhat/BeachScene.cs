@@ -92,6 +92,7 @@ namespace BayWhat
 			_Npcs = new NPCManager(_Core, new(partyArea.Position, partyArea.Size), 10f, _OceanArea, TextureLoader, _hud);
             _Npcs.Dying += HandleDying;
             _Npcs.AddEntities(50);
+			_Npcs.StartTextSpawn();
 			Layer_Game.Add(_Npcs);
 
 
