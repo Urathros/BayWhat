@@ -6,6 +6,7 @@ using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -103,12 +104,12 @@ namespace BayWhat
 
         private void HandleFocusGained(UIComponent comp)
         {
-            comp.BackgroundColor = Color.Red;
+            comp.BackgroundColor = SFML.Graphics.Color.Red;
         }
 
         private void HandleFocusLost(UIComponent comp)
         {
-            comp.BackgroundColor = Color.Blue;
+            comp.BackgroundColor = SFML.Graphics.Color.Blue;
         }
 
         private void HandleResize(Vector2f size)
@@ -221,7 +222,7 @@ namespace BayWhat
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
                    {
                        Name = CONTAINER_TITLE_NAME,
-                       Position = TitleContainerPosition,
+                       Position = new(TitleContainerPosition.X, 0),
                        Init = new UIComponent[]
                        {
                            _title = new UIGraphic(_Core, TextureLoader.Load($"baywhat_icon.png"))
@@ -236,7 +237,7 @@ namespace BayWhat
                            new Button(_Core, null, new Label(_Core, "Start") {Padding = TEXT_PADDING})
                            {
                                Name = "Button Start",
-                               BackgroundColor = Color.Blue,
+                               BackgroundColor = SFML.Graphics.Color.Blue,
                                InitReleased = b => _Core.SceneManager.ChangeScene(new BeachScene(_Core)),
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
@@ -245,7 +246,7 @@ namespace BayWhat
                            new Button(_Core, null, new Label(_Core, "Credits") {Padding = TEXT_PADDING})
                            {
                                Name = "Button Credits",
-                               BackgroundColor = Color.Blue,
+                               BackgroundColor = SFML.Graphics.Color.Blue,
                                InitReleased = b => 
                                {
                                    Layer_Game.Add(_uiCredits);
@@ -260,7 +261,7 @@ namespace BayWhat
                            new Button(_Core, null, new Label(_Core, "Exit") {Padding = TEXT_PADDING})
                            {
                                Name = "Button Exit",
-                               BackgroundColor = Color.Blue,
+                               BackgroundColor = SFML.Graphics.Color.Blue,
                                InitReleased = b => _Core.Exit(),
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
@@ -277,12 +278,17 @@ namespace BayWhat
                             new Label(_Core, _scoreText)
                             {
                                 BackgroundAlpha = 0.5f,
-                                BackgroundColor = Color.Blue
+                                BackgroundColor = SFML.Graphics.Color.Blue
                             }
                        }
                    }
                }
             };
+
+
+            var titleScale = MathF.Max(800 / _title.Texture.Size.X, 600 / _title.Texture.Size.Y) ;
+            Log.Debug(titleScale);
+            _title.Scale = new(titleScale, titleScale);
 
             _uiCredits = new(_Core, _Core.DeviceSize)
             {
@@ -315,7 +321,7 @@ namespace BayWhat
                            new Button(_Core, null, new Label(_Core, "Return") {Padding = TEXT_PADDING})
                            {
                                Name = "Button Return",
-                               BackgroundColor = Color.Blue,
+                               BackgroundColor = SFML.Graphics.Color.Blue,
                                InitReleased = b => 
                                { 
                                    Layer_Game.Remove(_uiCredits);
