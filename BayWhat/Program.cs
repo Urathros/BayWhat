@@ -11,7 +11,7 @@ namespace BayWhat
 #if !DEBUG
             var launcher = new Launcher()
             {
-                //BannerImage = Image.FromFile("Assets\\banner.png"),
+                BannerImage = System.Drawing.Image.FromFile("Assets\\banner.png"),
                 Text = Game.TITLE
             };
             var device = Device.Create(launcher, Game.TITLE);
