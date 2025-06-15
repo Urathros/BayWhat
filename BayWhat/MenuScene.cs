@@ -28,6 +28,7 @@ namespace BayWhat
         private Canvas _uiCredits;
         private FrameAnimation _bgScreen;
         private FrameAnimation _crcditsBgScreen;
+        private UIGraphic _title;
 
         /// <summary>
         /// BG Screen Frame for Resizing
@@ -50,7 +51,7 @@ namespace BayWhat
             set 
             {
                 _titleContainerPosition.X = value.X / 2;
-                _titleContainerPosition.Y = value.Y / 2 - 500;
+                _titleContainerPosition.Y = value.Y / 2 - 300;
             }
         }
 
@@ -130,9 +131,12 @@ namespace BayWhat
             var creditsScale = MathF.Min(size.X / _creditsDefaultFrame.Size.X, size.Y / _creditsDefaultFrame.Size.Y);
             _crcditsBgScreen.Scale = new(creditsScale, creditsScale);
 
+            var titleScale = MathF.Min(size.X / _title.Texture.Size.X, size.Y / _title.Texture.Size.Y) *.6f;
+            _title.Scale = new(titleScale , titleScale); 
+
             foreach (var comp in _uiRoot.GetAll<UIComponent>())
             {
-                if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = TitleContainerPosition;
+                if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = new(TitleContainerPosition.X, comp.Position.Y);
                 if (comp.Name == CONTAINER_BUTTONS_NAME) comp.Position = ButtonContainerPosition;
                 if (comp.Name == CONTAINER_SCORE_NAME) comp.Position = ScoreTextContainerPosition;
             }
@@ -220,7 +224,7 @@ namespace BayWhat
                        Position = TitleContainerPosition,
                        Init = new UIComponent[]
                        {
-                           new UIGraphic(_Core, TextureLoader.Load($"baywhat_icon.png"))
+                           _title = new UIGraphic(_Core, TextureLoader.Load($"baywhat_icon.png"))
                        }
                    },
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
