@@ -50,7 +50,7 @@ namespace BayWhat
             set 
             {
                 _titleContainerPosition.X = value.X / 2;
-                _titleContainerPosition.Y = value.Y / 2 - 50;
+                _titleContainerPosition.Y = value.Y / 2 - 300;
             }
         }
 
@@ -187,7 +187,7 @@ namespace BayWhat
             _defaultFrame = frames[0];
 
             _bgScreen = new FrameAnimation(_Core, .075f, frames);
-            //var aspectRatio = CalcAspectRatio(_Core.DeviceSize);
+
             var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
             _bgScreen.Scale = new(scale, scale);
 
@@ -218,13 +218,9 @@ namespace BayWhat
                    {
                        Name = CONTAINER_TITLE_NAME,
                        Position = TitleContainerPosition,
-                       Init = new[]
+                       Init = new UIComponent[]
                        {
-                           new Label(_Core, "BayWhat?!?")
-                           //{
-                           //    Padding = new FloatRect(new (0f, 0f), new (100, 30)),
-                           //    Scale = 
-                           //}
+                           new UIGraphic(_Core, TextureLoader.Load($"baywhat_icon.png"))
                        }
                    },
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
