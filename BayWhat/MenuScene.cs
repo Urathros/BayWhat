@@ -1,5 +1,6 @@
 ﻿using BlackCoat;
 using BlackCoat.Entities;
+using BlackCoat.Entities.Animation;
 using BlackCoat.UI;
 using SFML.Graphics;
 using SFML.System;
@@ -25,7 +26,12 @@ namespace BayWhat
         private readonly FloatRect TEXT_PADDING = new(6, 4, 6, 4);
         private Canvas _uiRoot;
         private Canvas _uiCredits;
-        private Graphic _bgGraphic;
+        private FrameAnimation _bgScreen;
+
+        /// <summary>
+        /// BG Screen Frame for Resizing
+        /// </summary>
+        private Texture _defaultFrame;
         private string _scoreText;
 
         private Vector2f _titleContainerPosition;
@@ -111,6 +117,12 @@ namespace BayWhat
             CreditsButtonContainerPosition = size;
             ScoreTextContainerPosition = size;
 
+
+            //var aspectRatio = CalcAspectRatio(size);
+
+            var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
+
             foreach (var comp in _uiRoot.GetAll<UIComponent>())
             {
                 if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = TitleContainerPosition;
@@ -129,25 +141,27 @@ namespace BayWhat
         void ReadScoreText()
         {
             string root = "Data";
-            if (!Directory.Exists(root)) return;
+            string path = Path.Combine(root, "Score.json");
+            if (!File.Exists(path)) return;
 
             try
             {
-                using (var stream = new FileStream($"Data\\Score.json", FileMode.Open))
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var json = reader.ReadToEnd();
-                        var data = JsonSerializer.Deserialize<ScoreData>(json);
-                        _scoreText = $"{data.PlayerName} Score: {data.Score}";
-                    }
-                }
+                var json = File.ReadAllText(path);
+                var data = JsonSerializer.Deserialize<ScoreData>(json);
+                _scoreText = $"{data!.PlayerName} Score: {data.Score}";
             }
             catch (Exception ex)
             {
 
                 throw;
             }
+        }
+
+        private float CalcAspectRatio(Vector2f scale)
+        {
+            if (scale.Y == 0f) throw new DivideByZeroException("Error: Divisor haven't be zero!");
+
+            return scale.X / scale.Y;
         }
 
         protected override bool Load()
@@ -158,12 +172,19 @@ namespace BayWhat
             CreditsButtonContainerPosition = _Core.DeviceSize;
             ScoreTextContainerPosition = _Core.DeviceSize;
 
-            var bgTexture = TextureLoader.Load($"BeachNight\\NewLevelSequence.0000.png");
+            string count;
+            var frames = new Texture[120];
+            for (int i = 0; i < frames.Count(); i++)
+            {
 
-            var texSize = bgTexture.Size;
+                frames[i] = TextureLoader.Load($"BeachNight\\NewLevelSequence.{i:0000}");
+            }
+            _defaultFrame = frames[0];
 
-            _bgGraphic = new Graphic(_Core, bgTexture);
-           
+            _bgScreen = new FrameAnimation(_Core, .075f, frames);
+            //var aspectRatio = CalcAspectRatio(_Core.DeviceSize);
+            var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
 
             var uiInput = new UIInput(Input, true);
 
@@ -171,9 +192,8 @@ namespace BayWhat
 
             _uiRoot = new(_Core, _Core.DeviceSize)
             {
-                Texture = bgTexture,
                 Input = uiInput,
-                //BackgroundColor = Color.Cyan,
+
                 Init = new UIComponent[]
                {
                    new OffsetContainer(_Core, Orientation.Vertical, 10)
@@ -283,7 +303,7 @@ namespace BayWhat
             };
 
             Layer_Overlay.Add(_uiRoot);
-            Layer_Background.Add(_bgGraphic);
+            Layer_Background.Add(_bgScreen);
             _Core.DeviceResized += HandleResize;
             
 

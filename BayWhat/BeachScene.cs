@@ -97,11 +97,11 @@ namespace BayWhat
 
 
 			// PauseMenu
-			_Pause = new PauseMenu(_Core, Input) { Visible = false };
+			_Pause = new PauseMenu(_Core, Input, TextureLoader) { Visible = false };
 			//Game.IsRunning = false; // when pause menu is opened
 			Layer_Overlay.Add(_Pause);
 
-			_gameOver = new GameOverMenu(_Core, Input) { Visible = false };
+			_gameOver = new GameOverMenu(_Core, Input, TextureLoader) { Visible = false };
             _gameOver.Score = _hud.Score;
 			Layer_Overlay.Add(_gameOver);
 
