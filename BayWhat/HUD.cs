@@ -40,7 +40,7 @@ namespace BayWhat
         public Vector2f WarningLabelPosition
         {
             get => _warningLabelPosition; 
-            set => _warningLabelPosition = new(value.X - 160, value.Y - 50);
+            set => _warningLabelPosition = new(value.X - 240, value.Y - 50);
         }
 
         private bool _isBlinking;
@@ -82,7 +82,7 @@ namespace BayWhat
             _scoreLabel.Position = ScoreLabelPosition;
             _scoreLabel.BackgroundAlpha = 0.5f;
 
-            _warningLabel = Game.GetPixelLabel(core, "WARNING", 150);
+            _warningLabel = Game.GetPixelLabel(core, "WARNING", 50);
             _warningLabel.TextColor = Color.Red;
             _warningLabel.Style = Text.Styles.Bold;
             _warningLabel.Position = WarningLabelPosition;
