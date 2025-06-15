@@ -378,6 +378,7 @@
     <None Remove="Assets\PixelifySans-Regular.ttf" />
     <None Remove="Assets\baywhat_tileset.png" />
     <None Remove="Assets\Level1.tmx" />
+    <None Remove="Assets\SharkSwimming.png" />
     <None Remove="Assets\test.tmx" />
     <None Remove="Assets\tileset.png" />
   </ItemGroup>
@@ -1491,6 +1492,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Level1.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SharkSwimming.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

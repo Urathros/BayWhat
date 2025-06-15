@@ -30,12 +30,11 @@ namespace BayWhat
 			CollisionShape = new RectangleCollisionShape(_Core.CollisionSystem, Position, _DimensionsCenter);
 
 			// PlayerGfx
-			Add(new Rectangle(_Core, _Dimensions, Color.Magenta));
 			var pos = new Vector2f(_DimensionsCenter.X, -_Dimensions.Y);
 			var origin = new Vector2f(_DimensionsCenter.X, 0);
 			var frametime = 0.2f;
-			Texture char_tex = texLoader.Load("baywhat_mc");
-			_Swim = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 8, 11).ToArray())
+			Texture char_tex = texLoader.Load("SharkSwimming");
+			_Swim = new BlittingAnimation(_Core, frametime, char_tex, Game.CalcFrames(char_tex, _Dimensions.ToVector2u(), 0, 3).ToArray())
 			{
 				Position = pos,
 				Origin = origin
