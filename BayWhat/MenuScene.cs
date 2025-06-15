@@ -27,11 +27,15 @@ namespace BayWhat
         private Canvas _uiRoot;
         private Canvas _uiCredits;
         private FrameAnimation _bgScreen;
+        private FrameAnimation _crcditsBgScreen;
 
         /// <summary>
         /// BG Screen Frame for Resizing
         /// </summary>
         private Texture _defaultFrame;
+
+        private Texture _creditsDefaultFrame;
+
         private string _scoreText;
 
         private Vector2f _titleContainerPosition;
@@ -123,6 +127,9 @@ namespace BayWhat
             var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
             _bgScreen.Scale = new(scale, scale);
 
+            var creditsScale = MathF.Min(size.X / _creditsDefaultFrame.Size.X, size.Y / _creditsDefaultFrame.Size.Y);
+            _crcditsBgScreen.Scale = new(creditsScale, creditsScale);
+
             foreach (var comp in _uiRoot.GetAll<UIComponent>())
             {
                 if (comp.Name == CONTAINER_TITLE_NAME) comp.Position = TitleContainerPosition;
@@ -186,6 +193,19 @@ namespace BayWhat
             var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
             _bgScreen.Scale = new(scale, scale);
 
+            var creditsFrames = new Texture[120];
+            for (int i = 0; i < creditsFrames.Count(); i++)
+            {
+                creditsFrames[i] = TextureLoader.Load($"BeachNoon\\NewLevelSequence.{i:0000}");
+            }
+            _creditsDefaultFrame = creditsFrames[0];
+
+            _crcditsBgScreen = new FrameAnimation(_Core, .075f, creditsFrames);
+            var creditsScale = MathF.Min(_Core.DeviceSize.X / _creditsDefaultFrame.Size.X, _Core.DeviceSize.Y / _creditsDefaultFrame.Size.Y);
+
+            _crcditsBgScreen.Scale = new(scale, scale);
+
+
             var uiInput = new UIInput(Input, true);
 
             ReadScoreText();
@@ -228,7 +248,13 @@ namespace BayWhat
                            {
                                Name = "Button Credits",
                                BackgroundColor = Color.Blue,
-                               InitReleased = b => Layer_Game.Add(_uiCredits),
+                               InitReleased = b => 
+                               {
+                                   Layer_Game.Add(_uiCredits);
+                                   Layer_Background.Add(_crcditsBgScreen);
+                                   Layer_Overlay.Remove(_uiRoot);
+                                   Layer_Background.Remove(_bgScreen);
+                               },
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
                            },
@@ -263,7 +289,6 @@ namespace BayWhat
             _uiCredits = new(_Core, _Core.DeviceSize)
             {
                 Input = uiInput,
-                BackgroundColor = Color.Magenta,
                 Init = new[]
                 {
                     new OffsetContainer(_Core, Orientation.Vertical, 10)
@@ -274,7 +299,7 @@ namespace BayWhat
                         {
 
                            new Label(_Core, "Credits"),
-                           new Label(_Core, ""),
+                           new Label(_Core),
                            new Label(_Core, "Alexander Schwahl"),
                            new Label(_Core, "Monika Zagorac"),
                            new Label(_Core, "Jochen Köhler"),
@@ -293,7 +318,13 @@ namespace BayWhat
                            {
                                Name = "Button Return",
                                BackgroundColor = Color.Blue,
-                               InitReleased = b => Layer_Game.Remove(_uiCredits),
+                               InitReleased = b => 
+                               { 
+                                   Layer_Game.Remove(_uiCredits);
+                                   Layer_Background.Remove(_crcditsBgScreen);
+                                   Layer_Overlay.Add(_uiRoot);
+                                   Layer_Background.Add(_bgScreen);
+                               },
                                InitFocusGained = HandleFocusGained,
                                InitFocusLost = HandleFocusLost
                            }
