@@ -1,4 +1,5 @@
 ﻿using BlackCoat;
+using BlackCoat.Entities.Animation;
 using BlackCoat.UI;
 using SFML.Graphics;
 using SFML.System;
@@ -14,9 +15,17 @@ namespace BayWhat
     {
         private const string CONTAINER_BUTTONS_NAME = "Container Buttons";
         private readonly FloatRect TEXT_PADDING = new(6, 4, 6, 4);
-
-
         private Vector2f _buttonContainerPosition;
+
+
+        private FrameAnimation _bgScreen;
+
+        /// <summary>
+        /// BG Screen Frame for Resizing
+        /// </summary>
+        private Texture _defaultFrame;
+
+
 
 
         public Vector2f ButtonContainerPosition
@@ -28,14 +37,28 @@ namespace BayWhat
             }
         }
 
-        public PauseMenu(Core core/*, params UIComponent[] components*/, Input input) : base(core, null)
+        public PauseMenu(Core core/*, params UIComponent[] components*/, Input input, TextureLoader textureLoader) : base(core, null)
         {
             Name = "Pause Menu";
             Input = new UIInput(input, true);
-            BackgroundColor = Color.Red;
+            //BackgroundColor = Color.Red;
 
             ButtonContainerPosition = core.DeviceSize;
 
+            string count;
+            var frames = new Texture[120];
+            for (int i = 0; i < frames.Count(); i++)
+            {
+                frames[i] = textureLoader.Load($"BeachAfternoon\\NewLevelSequence.{i:0000}");
+            }
+            _defaultFrame = frames[0];
+
+            _bgScreen = new FrameAnimation(_Core, .075f, frames);
+
+            var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
+            Add(_bgScreen);
+            
             Init = new[]
             {
                 new Canvas(core, core.DeviceSize)
@@ -107,7 +130,7 @@ namespace BayWhat
             _Core.SceneManager.ChangeScene(new MenuScene(_Core));
         }
 
-        //TODO: Resize Bug, i'm tired
+
         private void HandleResize(Vector2f size)
         {
             if (Disposed)
@@ -118,11 +141,20 @@ namespace BayWhat
 
             ButtonContainerPosition = size;
 
+
+            var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
+
+
             foreach (var comp in GetAll<UIComponent>())
             {
                 foreach (var innerComp in comp.GetAll<UIComponent>())
                 {
-                    if (innerComp.Name == CONTAINER_BUTTONS_NAME) comp.Position = ButtonContainerPosition;
+                    if (innerComp.Name == CONTAINER_BUTTONS_NAME)
+                    {
+                        (comp as Canvas)!.Resize(size);
+                        innerComp.Position = ButtonContainerPosition - innerComp.InnerSize / 2;
+                    }
                 }
 
             }

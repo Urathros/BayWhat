@@ -1,4 +1,6 @@
 ﻿using BlackCoat;
+using BlackCoat.Entities;
+using BlackCoat.Entities.Animation;
 using BlackCoat.UI;
 using SFML.Graphics;
 using SFML.System;
@@ -27,7 +29,15 @@ namespace BayWhat
 		private Vector2f _buttonContainerPosition;
 
 
-		public Vector2f ButtonContainerPosition
+
+        private Graphic _bgScreen;
+
+        /// <summary>
+        /// BG Screen Frame for Resizing
+        /// </summary>
+        private Texture _defaultFrame;
+
+        public Vector2f ButtonContainerPosition
 		{
 			get => _buttonContainerPosition;
 			set
@@ -48,12 +58,11 @@ namespace BayWhat
 		}
 
 
-		public GameOverMenu(Core core, Input input, params UIComponent[] components) : base(core, components)
+		public GameOverMenu(Core core, Input input, TextureLoader textureLoader, params UIComponent[] components) : base(core, components)
 		{
 			Name = nameof(GameOverMenu);
 
 			Input = new UIInput(input, true);
-			BackgroundColor = Color.Red;
 
 			ButtonContainerPosition = core.DeviceSize;
 			var nameText = new TextBox(_Core);
@@ -61,11 +70,18 @@ namespace BayWhat
 
 			_scoreLabel = new(core, "Score:");
 
-			Init = new UIComponent[]
+			_defaultFrame = textureLoader.Load($"BeachMorning\\NewLevelSequence.0000");
+
+            _bgScreen = new Graphic(_Core, _defaultFrame);
+
+            var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
+            Add(_bgScreen);
+
+            Init = new UIComponent[]
 			{
 				new Canvas(core, core.DeviceSize)
 				{
-					BackgroundColor = Color.Magenta,
 					Init = new UIComponent[]
 					{
 						new OffsetContainer(_Core, Orientation.Vertical, 10)
@@ -151,9 +167,9 @@ namespace BayWhat
 			string path = Path.Combine(root, "Score.json");
 			try
 			{
-				var data = JsonSerializer.Deserialize<List<ScoreData>>(File.ReadAllText(path)) ?? new();
-				data.Add(new ScoreData { PlayerName = _playerName, Score = Score });
-				File.WriteAllText(path, JsonSerializer.Serialize(data));
+				//var data = JsonSerializer.Deserialize<ScoreData>(File.ReadAllText(path)) ?? new();
+				//data.Add(new ScoreData { PlayerName = _playerName, Score = Score });
+				File.WriteAllText(path, JsonSerializer.Serialize(new ScoreData { PlayerName = _playerName, Score = Score }));
 			}
 			catch (IOException ioex)
 			{
@@ -172,7 +188,10 @@ namespace BayWhat
 
 			ButtonContainerPosition = size;
 
-			foreach (var comp in GetAll<UIComponent>())
+            var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
+            _bgScreen.Scale = new(scale, scale);
+
+            foreach (var comp in GetAll<UIComponent>())
 			{
 				foreach (var innerComp in comp.GetAll<UIComponent>())
 				{

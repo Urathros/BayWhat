@@ -142,6 +142,7 @@ namespace BayWhat
         {
             string root = "Data";
             string path = Path.Combine(root, "Score.json");
+            if (!File.Exists(path)) return;
 
             try
             {
@@ -175,9 +176,6 @@ namespace BayWhat
             var frames = new Texture[120];
             for (int i = 0; i < frames.Count(); i++)
             {
-                if (i >= 100 ) count = $"0{i}";
-                else if (i >= 10 && i < 100) count = $"00{i}";
-                else if (i < 10) count = $"000{i}";
 
                 frames[i] = TextureLoader.Load($"BeachNight\\NewLevelSequence.{i:0000}");
             }
