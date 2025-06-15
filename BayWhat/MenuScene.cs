@@ -30,6 +30,9 @@ namespace BayWhat
         private FrameAnimation _bgScreen;
         private FrameAnimation _crcditsBgScreen;
         private UIGraphic _title;
+        private Button _StartBtn;
+        private Button _CreditsBtn;
+        private Button _ExitBtn;
 
         /// <summary>
         /// BG Screen Frame for Resizing
@@ -72,7 +75,7 @@ namespace BayWhat
             get => _creditsTextContainerPosition; 
             set 
             {
-                _creditsTextContainerPosition.X = 32;
+                _creditsTextContainerPosition.X = value.X - 300;
                 _creditsTextContainerPosition.Y = value.Y / 4f; 
             }
         }
@@ -83,7 +86,7 @@ namespace BayWhat
             set
             {
                 _creditsButtonContainerPosition.X = 0;
-                _creditsButtonContainerPosition.Y = value.Y - 20;
+                _creditsButtonContainerPosition.Y = value.Y - 200;
             }
         }
 
@@ -234,7 +237,7 @@ namespace BayWhat
                        Position = ButtonContainerPosition,
                        Init = new[]
                        {
-                           new Button(_Core, null, new Label(_Core, "Start") {Padding = TEXT_PADDING})
+                           _StartBtn = new Button(_Core, null, Game.GetPixelLabel(_Core, "Start"))
                            {
                                Name = "Button Start",
                                BackgroundColor = SFML.Graphics.Color.Blue,
@@ -243,7 +246,7 @@ namespace BayWhat
                                InitFocusLost = HandleFocusLost
                            },
 
-                           new Button(_Core, null, new Label(_Core, "Credits") {Padding = TEXT_PADDING})
+                           _CreditsBtn = new Button(_Core, null, Game.GetPixelLabel(_Core, "Credits"))
                            {
                                Name = "Button Credits",
                                BackgroundColor = SFML.Graphics.Color.Blue,
@@ -258,7 +261,7 @@ namespace BayWhat
                                InitFocusLost = HandleFocusLost
                            },
 
-                           new Button(_Core, null, new Label(_Core, "Exit") {Padding = TEXT_PADDING})
+                           _ExitBtn = new Button(_Core, null, Game.GetPixelLabel(_Core, "Exit"))
                            {
                                Name = "Button Exit",
                                BackgroundColor = SFML.Graphics.Color.Blue,
@@ -287,8 +290,9 @@ namespace BayWhat
 
 
             var titleScale = MathF.Max(800 / _title.Texture.Size.X, 600 / _title.Texture.Size.Y) ;
-            Log.Debug(titleScale);
             _title.Scale = new(titleScale, titleScale);
+
+
 
             _uiCredits = new(_Core, _Core.DeviceSize)
             {
@@ -299,16 +303,17 @@ namespace BayWhat
                     {
                         Name = CONTAINER_CREDITS_TEXT_NAME,
                         Position = CreditsTextContainerPosition,
+                        BackgroundColor = SFML.Graphics.Color.Black,
                         Init = new[]
                         {
 
-                           new Label(_Core, "Credits"),
-                           new Label(_Core),
-                           new Label(_Core, "Alexander Schwahl"),
-                           new Label(_Core, "Monika Zagorac"),
-                           new Label(_Core, "Jochen Köhler"),
-                           new Label(_Core, "Louis Friedl"),
-                           new Label(_Core, "Marcus Schaal")
+                           Game.GetPixelLabel(_Core, "Credits"),
+                           Game.GetPixelLabel(_Core),
+                           Game.GetPixelLabel(_Core, "Alexander Schwahl"),
+                           Game.GetPixelLabel(_Core, "Monika Zagorac"),
+                           Game.GetPixelLabel(_Core, "Jochen Köhler"),
+                           Game.GetPixelLabel(_Core, "Louis Friedl"),
+                           Game.GetPixelLabel(_Core, "Marcus Schaal")
                         }
                     },
 
@@ -318,12 +323,12 @@ namespace BayWhat
                         Position = CreditsButtonContainerPosition,
                        Init = new[]
                        {
-                           new Button(_Core, null, new Label(_Core, "Return") {Padding = TEXT_PADDING})
+                           new Button(_Core, null, Game.GetPixelLabel(_Core, "Return"))
                            {
                                Name = "Button Return",
                                BackgroundColor = SFML.Graphics.Color.Blue,
-                               InitReleased = b => 
-                               { 
+                               InitReleased = b =>
+                               {
                                    Layer_Game.Remove(_uiCredits);
                                    Layer_Background.Remove(_crcditsBgScreen);
                                    Layer_Overlay.Add(_uiRoot);
