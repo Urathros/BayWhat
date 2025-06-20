@@ -1,17 +1,9 @@
-﻿using BlackCoat;
-using BlackCoat.Entities;
-using BlackCoat.Entities.Animation;
-using BlackCoat.UI;
+﻿using System.Text.Json;
 using SFML.Graphics;
 using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using BlackCoat;
+using BlackCoat.Entities;
+using BlackCoat.UI;
 
 namespace BayWhat
 {
@@ -22,28 +14,19 @@ namespace BayWhat
 
 		private Label _scoreLabel;
 
-		private string _playerName;
+		private string _playerName = "Player";
 
 		private uint _score;
 
 		private Vector2f _buttonContainerPosition;
 
-
-
-        private Graphic _bgScreen;
-
-        /// <summary>
-        /// BG Screen Frame for Resizing
-        /// </summary>
-        private Texture _defaultFrame;
+        private Texture _bgTex;
+        private Graphic _bgGfx;
 
         public Vector2f ButtonContainerPosition
 		{
 			get => _buttonContainerPosition;
-			set
-			{
-				_buttonContainerPosition = value / 2;
-			}
+			set => _buttonContainerPosition = value / 2;
 		}
 
 
@@ -61,9 +44,7 @@ namespace BayWhat
 		public GameOverMenu(Core core, Input input, TextureLoader textureLoader, params UIComponent[] components) : base(core, components)
 		{
 			Name = nameof(GameOverMenu);
-
 			Input = new UIInput(input, true);
-			
 
 			ButtonContainerPosition = core.DeviceSize;
 			var nameText = new TextBox(_Core, new(200,20), 32);
@@ -71,13 +52,12 @@ namespace BayWhat
 
 			_scoreLabel = Game.GetPixelLabel(core, "Score:");
 
-			_defaultFrame = textureLoader.Load($"BeachMorning\\NewLevelSequence.0000");
-
-            _bgScreen = new Graphic(_Core, _defaultFrame);
-
-            var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
-            _bgScreen.Scale = new(scale, scale);
-            Add(_bgScreen);
+			// BG
+			_bgTex = textureLoader.Load($"BeachMorning");
+            _bgGfx = new Graphic(_Core, _bgTex);
+            var scale = MathF.Min(_Core.DeviceSize.X / _bgTex.Size.X, _Core.DeviceSize.Y / _bgTex.Size.Y);
+            _bgGfx.Scale = new(scale, scale);
+            Add(_bgGfx);
 
             Init = new UIComponent[]
 			{
@@ -161,7 +141,6 @@ namespace BayWhat
 		private void HandleTextUpdate(Label text)
 		{
 			_playerName = text.Text;
-
 		}
 
 		private void HandleScoreWrite(Button btn)
@@ -191,8 +170,8 @@ namespace BayWhat
 
 			ButtonContainerPosition = size;
 
-            var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
-            _bgScreen.Scale = new(scale, scale);
+            var scale = MathF.Min(size.X / _bgTex.Size.X, size.Y / _bgTex.Size.Y);
+            _bgGfx.Scale = new(scale, scale);
 
             foreach (var comp in GetAll<UIComponent>())
 			{
