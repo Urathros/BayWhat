@@ -28,7 +28,7 @@ namespace BayWhat
         private Canvas _uiRoot;
         private Canvas _uiCredits;
         private FrameAnimation _bgScreen;
-        private FrameAnimation _crcditsBgScreen;
+        private Graphic _creditsBgGfx;
         private UIGraphic _title;
         private Button _StartBtn;
         private Button _CreditsBtn;
@@ -38,8 +38,7 @@ namespace BayWhat
         /// BG Screen Frame for Resizing
         /// </summary>
         private Texture _defaultFrame;
-
-        private Texture _creditsDefaultFrame;
+        private Texture _creditsTexture;
 
         private string _scoreText;
 
@@ -132,8 +131,8 @@ namespace BayWhat
             var scale = MathF.Min(size.X / _defaultFrame.Size.X, size.Y / _defaultFrame.Size.Y);
             _bgScreen.Scale = new(scale, scale);
 
-            var creditsScale = MathF.Min(size.X / _creditsDefaultFrame.Size.X, size.Y / _creditsDefaultFrame.Size.Y);
-            _crcditsBgScreen.Scale = new(creditsScale, creditsScale);
+            var creditsScale = MathF.Min(size.X / _creditsTexture.Size.X, size.Y / _creditsTexture.Size.Y);
+            _creditsBgGfx.Scale = new(creditsScale, creditsScale);
 
             var titleScale = MathF.Min(size.X / _title.Texture.Size.X, size.Y / _title.Texture.Size.Y) *.6f;
             _title.Scale = new(titleScale , titleScale); 
@@ -185,34 +184,20 @@ namespace BayWhat
             CreditsButtonContainerPosition = _Core.DeviceSize;
             ScoreTextContainerPosition = _Core.DeviceSize;
 
-            string count;
-            var frames = new Texture[120];
-            for (int i = 0; i < frames.Count(); i++)
-            {
-
-                frames[i] = TextureLoader.Load($"BeachNight\\NewLevelSequence.{i:0000}");
-            }
+           
+            var frames = Enumerable.Range(1, 119).Select(i => TextureLoader.Load($"BeachNight\\NewLevelSequence.{i:0000}")).ToArray();
             _defaultFrame = frames[0];
-
             _bgScreen = new FrameAnimation(_Core, .075f, frames);
 
             var scale = MathF.Min(_Core.DeviceSize.X / _defaultFrame.Size.X, _Core.DeviceSize.Y / _defaultFrame.Size.Y);
             _bgScreen.Scale = new(scale, scale);
 
-            var creditsFrames = new Texture[120];
-            for (int i = 0; i < creditsFrames.Count(); i++)
-            {
-                creditsFrames[i] = TextureLoader.Load($"BeachNoon\\NewLevelSequence.{i:0000}");
-            }
-            _creditsDefaultFrame = creditsFrames[0];
-
-            _crcditsBgScreen = new FrameAnimation(_Core, .075f, creditsFrames);
-            var creditsScale = MathF.Min(_Core.DeviceSize.X / _creditsDefaultFrame.Size.X, _Core.DeviceSize.Y / _creditsDefaultFrame.Size.Y);
-
-            _crcditsBgScreen.Scale = new(scale, scale);
+            // Credits
+            _creditsTexture = TextureLoader.Load("BeachNoon");
+            _creditsBgGfx = new Graphic(_Core, _creditsTexture) { Scale = new(scale, scale) };
 
 
-            var uiInput = new UIInput(Input, true);
+			var uiInput = new UIInput(Input, true);
 
             ReadScoreText();
 
@@ -253,7 +238,7 @@ namespace BayWhat
                                InitReleased = b => 
                                {
                                    Layer_Game.Add(_uiCredits);
-                                   Layer_Background.Add(_crcditsBgScreen);
+                                   Layer_Background.Add(_creditsBgGfx);
                                    Layer_Overlay.Remove(_uiRoot);
                                    Layer_Background.Remove(_bgScreen);
                                },
@@ -304,17 +289,17 @@ namespace BayWhat
                         Name = CONTAINER_CREDITS_TEXT_NAME,
                         Position = CreditsTextContainerPosition,
                         BackgroundColor = SFML.Graphics.Color.Black,
-                        Init = new[]
-                        {
-
-                           Game.GetPixelLabel(_Core, "Credits"),
+                        BackgroundAlpha = 0.6f,
+						Init =
+						[
+						   Game.GetPixelLabel(_Core, "Credits"),
                            Game.GetPixelLabel(_Core),
                            Game.GetPixelLabel(_Core, "Alexander Schwahl"),
                            Game.GetPixelLabel(_Core, "Monika Zagorac"),
                            Game.GetPixelLabel(_Core, "Jochen Köhler"),
                            Game.GetPixelLabel(_Core, "Louis Friedl"),
                            Game.GetPixelLabel(_Core, "Marcus Schaal")
-                        }
+                        ]
                     },
 
                     new OffsetContainer(_Core, Orientation.Vertical, 10)
@@ -330,7 +315,7 @@ namespace BayWhat
                                InitReleased = b =>
                                {
                                    Layer_Game.Remove(_uiCredits);
-                                   Layer_Background.Remove(_crcditsBgScreen);
+                                   Layer_Background.Remove(_creditsBgGfx);
                                    Layer_Overlay.Add(_uiRoot);
                                    Layer_Background.Add(_bgScreen);
                                },
