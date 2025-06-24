@@ -1,9 +1,10 @@
-﻿using BlackCoat;
-using BlackCoat.Entities;
-using BlackCoat.Entities.Shapes;
-using BlackCoat.InputMapping;
+﻿using System;
+using System.Linq;
 using SFML.System;
 using SFML.Graphics;
+using BlackCoat;
+using BlackCoat.Entities;
+using BlackCoat.InputMapping;
 using BlackCoat.Entities.Animation;
 using BlackCoat.Collision.Shapes;
 

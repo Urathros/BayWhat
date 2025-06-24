@@ -1,5 +1,6 @@
-using BlackCoat;
+using System;
 using SFML.Window;
+using BlackCoat;
 
 namespace BayWhat
 {
@@ -20,7 +21,7 @@ namespace BayWhat
 
 #if DEBUG
 			var vm = new VideoMode(800, 600);
-			var device = Device.Create(vm, Game.TITLE, Styles.Default, 0, false, 120);
+			var device = Device.Create(vm, Game.TITLE, Styles.Default, 0, false, 120, true);
 #endif
 			using var core = new Core(device);
 #if DEBUG

@@ -4,7 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -1033,12 +1034,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BlackCoat\src\BlackCoat.csproj" />
+    <PackageReference Include="SFML.Net" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BlackCoat">
+      <HintPath>lib\BlackCoat.dll</HintPath>
+    </Reference>
     <Reference Include="TinyTools">
-      <HintPath>..\..\BlackCoat\lib\TinyTools.dll</HintPath>
+      <HintPath>lib\TinyTools.dll</HintPath>
     </Reference>
   </ItemGroup>
 

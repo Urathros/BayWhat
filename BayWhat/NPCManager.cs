@@ -1,16 +1,11 @@
-﻿using BlackCoat;
-using BlackCoat.Animation;
-using BlackCoat.Collision;
-using BlackCoat.Collision.Shapes;
-using BlackCoat.Entities;
+﻿using System;
+using System.IO;
+using System.Linq;
 using SFML.Graphics;
 using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using BlackCoat;
+using BlackCoat.Collision.Shapes;
+using BlackCoat.Entities;
 
 namespace BayWhat
 {

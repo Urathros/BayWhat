@@ -1,12 +1,8 @@
-﻿using BlackCoat;
-using BlackCoat.Collision.Shapes;
-using BlackCoat.Entities.Shapes;
-using BlackCoat.InputMapping;
+﻿using System.Linq;
 using SFML.Graphics;
 using SFML.System;
-using System.ComponentModel;
-using System.Drawing;
-using static System.Formats.Asn1.AsnWriter;
+using BlackCoat;
+using BlackCoat.Collision.Shapes;
 
 namespace BayWhat
 {

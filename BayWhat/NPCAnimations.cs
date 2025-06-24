@@ -1,10 +1,10 @@
-﻿using Accessibility;
+﻿using System;
+using System.Linq;
+using SFML.System;
+using SFML.Graphics;
 using BlackCoat;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Animation;
-using SFML.Graphics;
-using SFML.System;
-using System;
 
 namespace BayWhat
 {
