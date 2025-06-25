@@ -21,8 +21,8 @@ On the technical side the game was realized using the [Black Coat Game Engine](h
 <sub><sub>(Alphabetical order.)</sub></sub>
 
 ### Screenshots
-![Screenshot1](/Screenshots/1.jpg?raw=true)
-![Screenshot2](/Screenshots/2.jpg?raw=true)
+![Screenshot1](/Screenshots/Screenshot1.jpg?raw=true)
+![Screenshot2](/Screenshots/Screenshot2.jpg?raw=true)
 
 ### License
 [Apache V2 - click here for details.](LICENSE.txt)
